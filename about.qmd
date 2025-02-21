@@ -16,4 +16,4 @@ about:
 
 ---
 
-About this blog
+This is Emmanuel's blog
