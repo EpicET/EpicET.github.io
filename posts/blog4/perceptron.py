@@ -67,15 +67,30 @@ class Perceptron(LinearModel):
         x_i = s_i * y_i > 0
         return 1 - (1.0 * x_i).mean()
 
-    def grad(self, X: torch.Tensor, y: torch.Tensor):
-        x_i = X[0]
-        s_i = x_i@self.w
-        y_i = y  
-        return -1*(s_i * (2*y_i-1) < 0) * (2*y_i-1) * x_i
+    def grad(self, X: torch.Tensor, y: torch.Tensor, alpha: float = 0.01):
+        """
+        The calculation to update the weight
 
+        Args:
+            X, torch.Tensor: a feature matrix with a single row
+            y, torch.Tensor: target vector
+            alpha, float: learning rate
+
+        Returns:
+            w, torch.Tensor: weight vector
+        """
+        p = torch.zeros(X.size()[1])
+        for i in X:
+            x_i = X[i] # get a single row of X
+            s_i = self.score(x_i) # get the score 
+            y_i = y[i]
+            p += 1*(s_i * (2*y_i-1) < 0) * (2*y_i-1) * x_i
+            
+        return  alpha/x_i  * p # weight update
+    
 class PerceptronOptimizer:
 
-    def __init__(self, model):
+    def __init__(self, model: Perceptron):
         self.model = model 
     
     def step(self, X: torch.Tensor, y: torch.Tensor):
