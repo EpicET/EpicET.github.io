@@ -67,7 +67,7 @@ class Perceptron(LinearModel):
         x_i = s_i * y_i > 0
         return 1 - (1.0 * x_i).mean()
 
-    def grad(self, X: torch.Tensor, y: torch.Tensor, alpha: float = 0.01):
+    def grad(self, X: torch.Tensor, y: torch.Tensor, alpha: float, mini_batch: bool):
         """
         The calculation to update the weight
 
@@ -79,25 +79,31 @@ class Perceptron(LinearModel):
         Returns:
             w, torch.Tensor: weight vector
         """
-        p = torch.zeros(X.size()[1])
-        for i in X:
-            x_i = X[i] # get a single row of X
-            s_i = self.score(x_i) # get the score 
-            y_i = y[i]
-            p += 1*(s_i * (2*y_i-1) < 0) * (2*y_i-1) * x_i
-            
-        return  alpha/x_i  * p # weight update
+
+        # Mini-batch Gradient Descent - Updates k points at a time
+        if mini_batch:
+            s = self.score(X)
+            return (alpha / X.size(0)) * (((s * (2*y - 1) < 0).float() * (2*y - 1)).unsqueeze(1) * X).sum(dim=0)
+        
+        # Original Perceptron Gradient Descent - Updates one point at a time
+        x_i = X[0] # get a single row of X
+        y_i =  y[0]   
+        s_i = self.score(x_i) # get the score 
+        return -1*(s_i * (2*y_i-1) < 0) * (2*y_i-1) * x_i
     
 class PerceptronOptimizer:
 
     def __init__(self, model: Perceptron):
         self.model = model 
     
-    def step(self, X: torch.Tensor, y: torch.Tensor):
+    def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float = 0.0, mini_batch: bool = False):
         """
         Compute one step of the perceptron update using the feature matrix X 
         and target vector y. 
         """
         loss = self.model.loss(X, y)
-        grad = self.model.grad(X, y)
-        self.model.w -= grad
+        grad = self.model.grad(X, y, alpha, mini_batch)
+        if(mini_batch):
+            self.model.w += grad
+        else:
+            self.model.w -= grad
