@@ -35,8 +35,7 @@ class LinearModel:
         ARGUMENTS: 
             X, torch.Tensor: the feature matrix. X.size() == (n, p), 
             where n is the number of data points and p is the 
-            number of features. This implementation always assumes 
-            that the final column of X is a constant column of 1s.
+            number of features.
             
             y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1} 
 
@@ -55,8 +54,7 @@ class LogisticRegression(LinearModel):
         ARGUMENTS: 
             X, torch.Tensor: the feature matrix. X.size() == (n, p), 
             where n is the number of data points and p is the 
-            number of features. This implementation always assumes 
-            that the final column of X is a constant column of 1s. 
+            number of features.  
 
         RETURNS: 
             L(w), torch.Tensor: the empirical risk.
@@ -73,8 +71,7 @@ class LogisticRegression(LinearModel):
         ARGUMENTS:
             X, torch.Tensor: the feature matrix. X.size() == (n, p), 
             where n is the number of data points and p is the 
-            number of features. This implementation always assumes 
-            that the final column of X is a constant column of 1s.
+            number of features. 
             y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
         
         RETURNS:
@@ -99,8 +96,7 @@ class GradientDescentOptimizer():
         ARGUMENTS:
             X, torch.Tensor: the feature matrix. X.size() == (n, p), 
             where n is the number of data points and p is the 
-            number of features. This implementation always assumes 
-            that the final column of X is a constant column of 1s. 
+            number of features.
 
             y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
             alpha, float: the learning rate.
@@ -110,7 +106,7 @@ class GradientDescentOptimizer():
         # print(f"Loss: {loss.item()}")
         if self.prev_w is None:
             self.prev_w = self.model.w.clone()
-
+        
         grad = self.model.grad(X, y)
         new_w = self.model.w - alpha * grad + beta * (self.model.w - self.prev_w)
         self.prev_w = self.model.w.clone()
