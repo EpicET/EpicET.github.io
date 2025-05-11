@@ -5,7 +5,7 @@ import torch
 class LinearModel:
 
     def __init__(self):
-        self.w = None 
+        self.w = None
 
     def score(self, X: torch.Tensor):
         """
@@ -25,7 +25,7 @@ class LinearModel:
         """
         if self.w is None: 
             self.w = torch.rand((X.size()[1]))
-
+            
         return X@self.w
 
     def predict(self, X: torch.Tensor):
@@ -47,42 +47,70 @@ class LinearModel:
 
 class KernelLogisticRegression(LinearModel):
     
-    def loss(self, X: torch.Tensor, y: torch.Tensor):
-        """
-        Compute the empirical risk L(w), using logistic loss.
-        
-        ARGUMENTS: 
-            X, torch.Tensor: the feature matrix. X.size() == (n, p), 
-            where n is the number of data points and p is the 
-            number of features.  
-
-        RETURNS: 
-            L(w), torch.Tensor: the empirical risk.
-        """
-      
-        s = self.score(X)
-        sig = lambda s: 1/(1 + torch.exp(-s))
-        return torch.mean(-y*torch.log(sig(s)) - (1 - y)*torch.log(1 - sig(s)))
-
-    def grad(self, X: torch.Tensor, y: torch.Tensor):
-        """
-        Compute the gradient of empirical risk ∇L(w)
-        
-        ARGUMENTS:
-            X, torch.Tensor: the feature matrix. X.size() == (n, p), 
-            where n is the number of data points and p is the 
-            number of features. 
-            y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
-        
-        RETURNS:
-            ∇L(w), torch.Tensor: the gradient of empirical risk.
-        """
-        s = self.score(X)
-        sig = lambda s: 1/(1 + torch.exp(-s))
-        return X.T @ (sig(s) - y) / X.size(0)
+    def __init__(self, kernel: function, lam: float, gamma: int):
+        super().__init__()
+        self.a = None
+        self.lam = lam
+        self.gamma = gamma
+        self.kernel = kernel
+        self.X_t = None
+        self.prevK = None
     
-    def rbf_kernel(X_1, X_2, gamma):
-        return torch.exp(-gamma*torch.cdist(X_1, X_2)**2)
+    def score(self, X: torch.Tensor, recompute_kernel: bool):
+        if recompute_kernel: 
+            K = self.kernel(X, self.X_t, self.gamma)
+            self.prevK = K
+        else:
+            K = self.prevK
+            
+        return K@self.a
+    
+  
+    
+    def fit(self, X: torch.Tensor, y: torch.Tensor, m_epochs: int=10, lr: float=0.1):
+        m = X.size(0) if isinstance(X, torch.Tensor) else len(X)
+        
+        # compute the kernel matrix
+        K = self.kernel(X, self.X_t, self.gamma)  
+        
+        # perform the fit
+        self.a = torch.zeros(K)
+        
+        # save the training data: we'll need it for prediction
+        self.X_t = X
+        
+        opt = GradientDescentOptimizer(self)
+
+        # for epoch in range(m_epochs):
+        #     s = K @ self.a  # shape: (m,)
+        #     loss = -torch.mean(y * torch.log(torch.sigmoid(s) + 1e-8) +
+        #                        (1 - y) * torch.log(1 - torch.sigmoid(s) + 1e-8))
+        #     loss += self.lam * torch.norm(self.a, p=1)
+
+        #     optimizer.zero_grad()
+        #     loss.backward()
+        #     optimizer.step()
+        
+        
+    # def predict(self, X):
+    #     """
+    #     implements eq. 12.3
+    #     """
+    #     # compute the kernel matrix of the new data with the training data
+    #     k = self.kernel(X, self.X_train, **self.kwargs)
+
+    #     # compute the predictions
+    #     s = k@self.a
+        
+    #     return s  
+    
+    # def loss(self, K: torch.Tensor, y: torch.Tensor):
+    #     s = K@self.a
+    #     sig = lambda s: 1/(1 + torch.exp(-s))
+    #     p1 = y * torch.log(sig(s))
+    #     p2 = (1 - y) * torch.log(1 - sig(s))
+    #     reg = 1
+    #     return -torch.mean(p1 + p2 + reg)
 
 class GradientDescentOptimizer():
 
