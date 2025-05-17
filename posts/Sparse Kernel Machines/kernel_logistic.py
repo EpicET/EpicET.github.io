@@ -1,11 +1,8 @@
 import torch
-
-
-
 class LinearModel:
 
     def __init__(self):
-        self.a = None # used to be self.w
+        self.w = None 
 
     def score(self, X: torch.Tensor):
         """
@@ -23,10 +20,10 @@ class LinearModel:
         RETURNS: 
             s torch.Tensor: vector of scores. s.size() = (n,)
         """
-        if self.a is None: 
-            self.a = torch.rand((X.size()[1]))
+        if self.w is None: 
+            self.w = torch.rand((X.size()[1]))
         # print("Weight a shape:", self.a.shape)
-        return X@self.a
+        return X@self.w
 
     def predict(self, X: torch.Tensor):
         """
@@ -52,84 +49,85 @@ class KernelLogisticRegression(LinearModel):
         self.kernel = kernel
         self.X_t = None
         self.prevK = None
+        self.a = None
+        self.prev_a = None
     
-    # Compute loss L(a) 
-    def loss(self, K: torch.Tensor, y: torch.Tensor):
-        s = self.score(K)
-        sig = lambda s: 1/(1 + torch.exp(-s))
-        loss = -y*torch.log(sig(s)) - (1 - y)*torch.log(1 - sig(s))
-        reg = self.lam * torch.norm(self.a, p=1)
-        return torch.mean(loss + reg) 
-    
-    def grad(self, K: torch.Tensor, y: torch.Tensor):
-        s = self.score(K)
-        sig = lambda s: 1/(1 + torch.exp(-s))
-        return K @ (sig(s) - y) / K.size(0)
-     
+    def score(self, K: torch.Tensor):
+        """
+        Computes the model's output scores for the given kernel matrix.
+
+        Args:
+            K (torch.Tensor): The kernel matrix of shape (n_samples, n_train_samples).
+
+        Returns:
+            torch.Tensor: The predicted scores for each sample.
+        """
+        if self.a is None: 
+            self.a = torch.rand(K.shape[1])  # matches number of training samples
+        return K @ self.a
+
+    def grad(self, K: torch.Tensor, y: torch.Tensor, m: int):
+        """
+        Computes the gradient of the regularized logistic loss with respect to the model parameters.
+
+        Args:
+            K (torch.Tensor): The kernel matrix of shape (m, n), where m is the number of samples and n is the number of features or basis functions.
+            y (torch.Tensor): The target labels tensor of shape (m,), with values typically in {0, 1}.
+            m (int): The number of training samples.
+
+        Returns:
+            torch.Tensor: The gradient of the loss with respect to the model parameters, of shape (n,).
+        """
+        s = K @ self.a
+        sig = 1 / (1 + torch.exp(-s))
+        grad_loss = K @ (sig - y) / m + self.lam * self.a
+        return grad_loss
+  
     def prediction(self, X: torch.Tensor, recompute_kernel: bool):
+        """
+        Computes the predicted probabilities for input samples using the kernel logistic regression model.
+
+        Args:
+            X (torch.Tensor): Input data tensor of shape (n_samples, n_features).
+            recompute_kernel (bool): If True, recompute the kernel matrix between X and training data; 
+                                     if False, use the previously computed kernel matrix.
+
+        Returns:
+            torch.Tensor: Predicted probabilities for each input sample, as a 1D tensor.
+        """
         if recompute_kernel: 
             K = self.kernel(X, self.X_t, self.gamma)
             self.prevK = K
         else:
             K = self.prevK
-        
-        return self.score(K)
+        s = K @ self.a
+        probs = 1 / (1 + torch.exp(-s))
+        return probs
     
-    def fit(self, X: torch.Tensor, y: torch.Tensor, m_epochs, lr):
-        m = X.size(0) if isinstance(X, torch.Tensor) else len(X) 
-       # print("X shape:", X.shape)
-        
+    def fit(self, X: torch.Tensor, y: torch.Tensor, m_epochs, lr, beta: float = 0.0):
+        """
+        Fits the kernel logistic regression model to the provided training data using gradient descent with optional momentum.
+        Args:
+            X (torch.Tensor): Input feature tensor of shape (n_samples, n_features).
+            y (torch.Tensor): Target labels tensor of shape (n_samples,).
+            m_epochs (int): Number of training epochs.
+            lr (float): Learning rate for gradient descent.
+            beta (float, optional): Momentum coefficient. Default is 0.0.
+        """
+        m = X.size(0)
+
         if self.X_t is None:
             self.X_t = X
+
+        K = self.kernel(X, self.X_t, self.gamma)
         
-        # compute the kernel matrix
-        K = self.kernel(X, self.X_t, self.gamma)  
-        # print("K shape:", K.shape)
-        
-        # perform the fit
-        self.a = torch.zeros(m)
-        # print("Weight a shape:", self.a.shape)
-        
-        # save the training data: we'll need it for prediction
-        self.X_t = X
-        
-        # use our own optimizer?
-        opt = GradientDescentOptimizer(model=self)
+        if self.a is None:
+            self.a = torch.zeros(K.shape[1])  # num training points
+        if self.prev_a is None:
+            self.prev_a = self.a.clone()
 
         for epoch in range(m_epochs):
-            loss = self.loss(K, y)
-            
-            if epoch % 100000 == 0:  # adjust this number as needed
-                print(f"Epoch {epoch}, Loss: {loss.item():.6f}")
-            
-            opt.step(K, y, alpha=lr, beta=0.9) # What is beta supposed to be?
-   
-         
-class GradientDescentOptimizer():
-
-    def __init__(self, model: KernelLogisticRegression):
-        self.model = model 
-        self.prev_a = None # used be self.prev_w
-    
-    def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float, beta: float):
-        """
-        Compute one step of the logistic update using the feature matrix X 
-        and target vector y. 
-        
-        ARGUMENTS:
-            X, torch.Tensor: the feature matrix. X.size() == (n, p), 
-            where n is the number of data points and p is the 
-            number of features.
-
-            y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
-            alpha, float: the learning rate.
-            beta, float: the momentum term.
-        """
-        if self.prev_a is None:
-            self.prev_a = self.model.a.clone()
-        loss = self.model.loss(X, y)
-        grad = self.model.grad(X, y)
-        new_a = self.model.a - alpha * grad + beta * (self.model.a - self.prev_a)
-        self.prev_a = self.model.a.clone()
-        self.model.a = new_a
-        
+            grad_a = self.grad(K, y, m)
+            new_a = self.a - lr * grad_a + beta * (self.a - self.prev_a)
+            self.prev_a = self.a.clone()
+            self.a = new_a
