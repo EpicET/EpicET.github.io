@@ -47,93 +47,118 @@ class LogisticRegression(LinearModel):
     
     def loss(self, X: torch.Tensor, y: torch.Tensor):
         """
-        Compute the empirical risk L(w), using logistic loss.
-        
-        ARGUMENTS: 
-            X, torch.Tensor: the feature matrix. X.size() == (n, p), 
-            where n is the number of data points and p is the 
-            number of features.  
+        Compute the average binary cross-entropy loss for logistic regression.
 
-        RETURNS: 
-            L(w), torch.Tensor: the empirical risk.
+        ARGUMENTS:
+            X, torch.Tensor: Feature matrix of shape (n_samples, n_features).
+            y, torch.Tensor: Target labels of shape (n_samples,), values in {0, 1}.
+
+        RETURNS:
+            torch.Tensor: Scalar tensor representing the mean binary cross-entropy loss.
         """
         s = self.score(X)
         sig = lambda s: 1/(1 + torch.exp(-s))
         return torch.mean(-y*torch.log(sig(s)) - (1 - y)*torch.log(1 - sig(s)))
 
-    def grad(self, X: torch.Tensor, y: torch.Tensor):
+    def grad(self, X: torch.Tensor, y: torch.Tensor, alpha: float = 0.002, mini_batch: bool = False):
         """
-        Compute the gradient of empirical risk ∇L(w)
-        
+        Compute the gradient of the logistic regression loss with respect to model weights.
+
         ARGUMENTS:
-            X, torch.Tensor: the feature matrix. X.size() == (n, p), 
-            where n is the number of data points and p is the 
-            number of features. 
-            y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
-        
+            X, torch.Tensor: Feature matrix of shape (n_samples, n_features).
+            y, torch.Tensor: Target labels of shape (n_samples,), values in {0, 1}.
+            alpha, float: Learning rate (unused in computation, kept for compatibility).
+            mini_batch, bool: If True, use a random mini-batch of size 5.
+
         RETURNS:
-            ∇L(w), torch.Tensor: the gradient of empirical risk.
+            torch.Tensor: Gradient vector of shape (n_features,).
         """
+        if mini_batch: 
+            k = 5 
+            ix = torch.randperm(X.size(0))[:k]
+            X = X[ix,:]
+            y = y[ix] 
+        
         s = self.score(X)
         sig = lambda s: 1/(1 + torch.exp(-s))
         return X.T @ (sig(s) - y) / X.size(0)
     
     def hessian(self, X: torch.Tensor, y: torch.Tensor):
         """
-        Compute the hessian of empirical risk ∇²L(w)
-        
+        Compute the Hessian matrix (second derivative) of the logistic regression loss.
+
         ARGUMENTS:
-            X, torch.Tensor: the feature matrix. X.size() == (n, p), 
-            where n is the number of data points and p is the 
-            number of features. 
-            y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
-        
+            X, torch.Tensor: Feature matrix of shape (n_samples, n_features).
+            y, torch.Tensor: Target labels of shape (n_samples,), values in {0, 1}.
+
         RETURNS:
-            ∇²L(w), torch.Tensor: the hessian of empirical risk.
+            torch.Tensor: Hessian matrix of shape (n_features, n_features).
         """
-        
         s = self.score(X)
         sig = lambda s: 1/(1 + torch.exp(-s))
         diag = sig(s) * (1 - sig(s))
         diag = diag.unsqueeze(1)
         return X.T @ (diag * X) / X.size(0)
 
-class NewtonOptimizer():
-
-    def __init__(self, model: LogisticRegression):
-        self.model = model 
-       
-    def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float):
-        grad = self.model.grad(X, y)
-        hess = self.model.hessian(X, y)
-        inv_hess = torch.linalg.inv(hess)
-        self.model.w = self.model.w - alpha * inv_hess @ grad
-        
 class GradientDescentOptimizer():
-
     def __init__(self, model: LogisticRegression):
+        """
+        Initialize the optimizer with a logistic regression model.
+
+        ARGUMENTS:
+            model, LogisticRegression: The model to optimize.
+        """
         self.model = model 
         self.prev_w = None
     
-    def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float, beta: float):
+    def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float, beta: float, mini_batch: bool = False):
         """
-        Compute one step of the logistic update using the feature matrix X 
-        and target vector y. 
-        
-        ARGUMENTS:
-            X, torch.Tensor: the feature matrix. X.size() == (n, p), 
-            where n is the number of data points and p is the 
-            number of features.
+        Perform one step of (momentum) gradient descent on the model weights.
 
-            y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
-            alpha, float: the learning rate.
-            beta, float: the momentum term.
+        ARGUMENTS:
+            X, torch.Tensor: Feature matrix of shape (n_samples, n_features).
+            y, torch.Tensor: Target labels of shape (n_samples,).
+            alpha, float: Learning rate.
+            beta, float: Momentum parameter.
+            mini_batch, bool: If True, use a random mini-batch.
+
+        RETURNS:
+            None
         """
+        loss = self.model.loss(X, y)
         if self.prev_w is None:
             self.prev_w = self.model.w.clone()
         
-        grad = self.model.grad(X, y)
+        grad = self.model.grad(X, y, mini_batch=mini_batch)
         new_w = self.model.w - alpha * grad + beta * (self.model.w - self.prev_w)
         self.prev_w = self.model.w.clone()
         self.model.w = new_w
         
+
+class NewtonOptimizer():
+    def __init__(self, model: LogisticRegression):
+        """
+        Initialize the optimizer with a logistic regression model.
+
+        ARGUMENTS:
+            model, LogisticRegression: The model to optimize.
+        """
+        self.model = model 
+       
+    def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float):
+        """
+        Perform one step of Newton's method for logistic regression.
+
+        ARGUMENTS:
+            X, torch.Tensor: Feature matrix of shape (n_samples, n_features).
+            y, torch.Tensor: Target labels of shape (n_samples,).
+            alpha, float: Step size multiplier.
+
+        RETURNS:
+            None
+        """
+        grad = self.model.grad(X, y)
+        hess = self.model.hessian(X, y)
+        inv_hess = torch.linalg.inv(hess)
+        self.model.w = self.model.w - alpha * inv_hess @ grad
+
