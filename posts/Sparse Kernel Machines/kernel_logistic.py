@@ -83,7 +83,7 @@ class KernelLogisticRegression(LinearModel):
         grad_loss = K @ (sig - y) / m + self.lam * self.a
         return grad_loss
   
-    def prediction(self, X: torch.Tensor, recompute_kernel: bool):
+    def prediction(self, X: torch.Tensor, recompute_kernel: bool = True):
         """
         Computes the predicted probabilities for input samples using the kernel logistic regression model.
 

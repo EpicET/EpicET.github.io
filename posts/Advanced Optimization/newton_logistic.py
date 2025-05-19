@@ -145,20 +145,30 @@ class NewtonOptimizer():
         """
         self.model = model 
        
+    # def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float):
+    #     """
+    #     Perform one step of Newton's method for logistic regression.
+
+    #     ARGUMENTS:
+    #         X, torch.Tensor: Feature matrix of shape (n_samples, n_features).
+    #         y, torch.Tensor: Target labels of shape (n_samples,).
+    #         alpha, float: Step size multiplier.
+
+    #     """
+    #     grad = self.model.grad(X, y)
+    #     hess = self.model.hessian(X, y)
+    #     inv_hess = torch.linalg.inv(hess)
+    #     self.model.w = self.model.w - alpha * inv_hess @ grad
+    
     def step(self, X: torch.Tensor, y: torch.Tensor, alpha: float):
-        """
-        Perform one step of Newton's method for logistic regression.
-
-        ARGUMENTS:
-            X, torch.Tensor: Feature matrix of shape (n_samples, n_features).
-            y, torch.Tensor: Target labels of shape (n_samples,).
-            alpha, float: Step size multiplier.
-
-        RETURNS:
-            None
-        """
         grad = self.model.grad(X, y)
         hess = self.model.hessian(X, y)
-        inv_hess = torch.linalg.inv(hess)
-        self.model.w = self.model.w - alpha * inv_hess @ grad
+        
+        # Regularize Hessian for numerical stability
+        damping = 1e-3
+        identity = torch.eye(hess.size(0), dtype=hess.dtype, device=hess.device)
+        delta = torch.linalg.solve(hess + damping * identity, grad)
+        self.model.w = self.model.w - alpha * delta
+    
+    
 
