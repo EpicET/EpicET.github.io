@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Emmanuel Towner">
-<meta name="dcterms.date" content="2025-03-31">
-<meta name="description" content="Blog Post 4">
 
-<title>Implementing the Perceptron Algorithm – My Awesome CSCI 0451 Blog</title>
+<title>Implementing a Perceptron Algorithm – My Awesome CSCI 0451 Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -168,31 +165,14 @@ background-size: cover;
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Implementing the Perceptron Algorithm</h1>
-                  <div>
-        <div class="description">
-          Blog Post 4
-        </div>
-      </div>
-                </div>
+      <h1 class="title">Implementing a Perceptron Algorithm</h1>
+                      </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Emmanuel Towner </p>
-            </div>
-    </div>
       
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">March 31, 2025</p>
-      </div>
-    </div>
     
       
     </div>
@@ -209,18 +189,18 @@ background-size: cover;
 
 
 
-<section id="implementing-a-perceptron-algorithm" class="level1">
-<h1>Implementing a Perceptron Algorithm</h1>
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
 <p>Link to <a href="https://github.com/EpicET/EpicET.github.io/blob/main/posts/blog4/perceptron.py">perceptron source code</a>.</p>
-<div id="cell-3" class="cell" data-execution_count="1">
+<p>This blog post explores the implementation and behavior of the perceptron algorithm. Using PyTorch, we implement perecepton grad and optimizing functionality. We analyze how the perceptron performs under different scenarios: linearly separable data, non-linearly separable data, and high-dimensional inputs. The goal is to observe how the perceptron learns from data and how its performance is affected by noise, dimensionality, and training strategies such as stochastic and mini-batch updates.</p>
+<p>The grad function in the Perceptron class computes the weight update for the model, adapting to either standard (single-point) or mini-batch training. When mini_batch is set to False, the function performs the normal perceptron update using only one data point. It checks if the point is misclassified by evaluating whether the score times the modified label (in {-1, 1}) is less than zero. If so, it returns a weight adjustment in the direction of the mislabeled point; otherwise, the update is zero. In the mini-batch case (mini_batch=True), the function processes a batch of samples. It first computes the scores for all examples, identifies which ones are misclassified, and then calculates a weighted sum of their feature vectors scaled by the learning rate alpha. This update is averaged over the batch size to maintain stability. The result is a single update vector that shifts the decision boundary based on all misclassified points in the batch.</p>
+<div id="cell-4" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext autoreload</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceptron <span class="im">import</span> Perceptron, PerceptronOptimizer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Cells 1 to 7 has been directly adapted from Prof.&nbsp;Phil’s code. Cell 8 is slightly modified from the original code. The code below in the sets up the necessary functions to implement a perceptron algorithm.</p>
-<div id="cell-5" class="cell" data-execution_count="2">
+<div id="cell-6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
@@ -257,7 +237,7 @@ background-size: cover;
 <section id="test-the-perceptron-algorithm" class="level3">
 <h3 class="anchored" data-anchor-id="test-the-perceptron-algorithm">Test the Perceptron Algorithm</h3>
 <p>This tests the Perceptron to see if the loss does reach 0.</p>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate a model and an optimizer</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Perceptron() </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> PerceptronOptimizer(p)</span>
@@ -294,12 +274,13 @@ background-size: cover;
 </div>
 </div>
 </div>
+<p>The plot shows the perceptron loss decreasing over 180 update iterations. Initially, the loss is high (~0.5), but it drops sharply within the first 30 updates, indicating rapid correction of misclassified points. Occasional spikes (e.g., near iterations 20 and 170) reflect temporary misclassifications due to stochastic updates. Despite these, the overall trend is downward, and the loss reaches zero around iteration 180, confirming that the data is linearly separable and the perceptron successfully learned a perfect decision boundary.</p>
 </section>
 </section>
 <section id="experiment-1" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-1">Experiment 1</h2>
 <p>This plots the decision boundary and the data points over time.</p>
-<div id="cell-9" class="cell" data-execution_count="4">
+<div id="cell-11" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a perceptron </span></span>
@@ -367,15 +348,17 @@ background-size: cover;
 </div>
 </div>
 </div>
+<p>The figure shows a step-by-step visualization of the oerceptron learning process over six weight updates. Each subplot displays the current decision boundary as a solid line. The loss values does decrease from 0.177 to 0.003 but throughout iterations there are many fluctuations such as the spike back to 0.500 in the fifth plot show that a single-point update can temporarily worsen performance on the full dataset.</p>
 </section>
 <section id="experiment-2" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-2">Experiment 2</h2>
-<div id="cell-11" class="cell" data-execution_count="5">
+<div id="cell-14" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create non-linearly separable data</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data(n_points <span class="op">=</span> <span class="dv">300</span>, noise <span class="op">=</span> <span class="fl">0.5</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> X.size(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="6">
+<p>Generates a new dataset with higher noise, making it non-linearly separable, to test the perceptron’s performance in a more challenging scenario.</p>
+<div id="cell-16" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a perceptron </span></span>
@@ -432,13 +415,15 @@ background-size: cover;
 </div>
 </div>
 </div>
+<p>Trains the perceptron on the non-linearly separable data, tracking the model’s score (accuracy) over iterations. It plots both the score progression and the final decision boundary, illustrating the perceptron’s limitations on such data. The left plot shows the score across 1,000 iterations. The values fluctuate heavily and the model is unable to consistent accurate score. The right plot shows the final decision boundary with a loss of 0.113. While the boundary generally separates the two classes, several misclassified points remain, particularly near the overlap region. The model was unable to achieve lowest accuracy before 1000 iterations, highlighting it’s difficulty to converge.</p>
 </section>
 <section id="experiment-3" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-3">Experiment 3</h2>
-<div id="cell-14" class="cell" data-execution_count="7">
+<div id="cell-19" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data(n_points <span class="op">=</span> <span class="dv">300</span>, noise <span class="op">=</span> <span class="fl">0.2</span>, p_dims<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="8">
+<p>Generates a new dataset with five features (higher dimensionality) to test how the perceptron performs in higher-dimensional spaces.</p>
+<div id="cell-21" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a perceptron </span></span>
@@ -479,10 +464,12 @@ background-size: cover;
 Iteration 2: Loss = 0.000, Score = -0.486</code></pre>
 </div>
 </div>
+<p>The perceptron converged in just two updates, indicating that the dataset is linearly separable. In the first iteration, the loss dropped to 0.010 with a score of 0.625, reflecting improved separation. After the second update, the loss reached 0.000, meaning all training points were correctly classified. Interestingly, the score dropped to -0.486 despite perfect classification. This occurs because the score reflects the signed margin, not accuracy, and can decrease if the update alters the orientation or scale of the decision boundary. Overall, the perceptron successfully found a separating hyperplane in minimal steps.</p>
+<p>The runtime complexity of a single iteration of the perceptron algorithm is O(p), where p is the number of features. This is because each update involves computing the dot product between the weight vector and a single data point, which requires iterating over p elements. The complexity does not depend on the number of data points n in a single iteration, since each iteration operates on only one randomly selected point. For a single iteration, the cost is linear in the number of features and independent of the dataset size.</p>
 </section>
 <section id="minibatch-perceptron" class="level2">
 <h2 class="anchored" data-anchor-id="minibatch-perceptron">Minibatch Perceptron</h2>
-<div id="cell-17" class="cell" data-execution_count="9">
+<div id="cell-25" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_perceptron_training(X: torch.Tensor, y: torch.Tensor, model, optimizer, k: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span>, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                             max_iters: <span class="bu">int</span> <span class="op">=</span> <span class="dv">1000</span>, alpha: <span class="bu">float</span> <span class="op">=</span>  <span class="fl">0.1</span>):</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -548,11 +535,11 @@ Iteration 2: Loss = 0.000, Score = -0.486</code></pre>
 </div>
 <section id="experiment-1-k-1" class="level3">
 <h3 class="anchored" data-anchor-id="experiment-1-k-1">Experiment 1: k = 1</h3>
-<div id="cell-19" class="cell" data-execution_count="10">
+<div id="cell-27" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data(n_points <span class="op">=</span> <span class="dv">300</span>, noise <span class="op">=</span> <span class="fl">0.2</span>, p_dims<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="11">
+<div id="cell-28" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regualar Perceptron</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plot_perceptron_training(X, y, Perceptron, PerceptronOptimizer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -563,7 +550,7 @@ Iteration 2: Loss = 0.000, Score = -0.486</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="12">
+<div id="cell-29" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mini-batch k = 1</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plot_perceptron_training(X, y, Perceptron, PerceptronOptimizer, k<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -577,7 +564,7 @@ Iteration 2: Loss = 0.000, Score = -0.486</code></pre>
 </section>
 <section id="experiment-2-k-10" class="level3">
 <h3 class="anchored" data-anchor-id="experiment-2-k-10">Experiment 2: k = 10</h3>
-<div id="cell-23" class="cell" data-execution_count="13">
+<div id="cell-31" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plot_perceptron_training(X, y, Perceptron, PerceptronOptimizer, k<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -590,7 +577,7 @@ Iteration 2: Loss = 0.000, Score = -0.486</code></pre>
 </section>
 <section id="experiment-3-k-n" class="level3">
 <h3 class="anchored" data-anchor-id="experiment-3-k-n">Experiment 3: k = n</h3>
-<div id="cell-25" class="cell" data-execution_count="14">
+<div id="cell-33" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create non-linearly separable data</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data(n_points <span class="op">=</span> <span class="dv">300</span>, noise <span class="op">=</span> <span class="fl">0.7</span>, p_dims<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> X.size(<span class="dv">0</span>)</span>
@@ -607,7 +594,7 @@ Iteration 2: Loss = 0.000, Score = -0.486</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-26" class="cell">
+<div id="cell-34" class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a perceptron </span></span>
@@ -651,10 +638,13 @@ Iteration 2: Loss = 0.000, Score = -0.486</code></pre>
 <span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-
 </section>
 </section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The experiments demonstrate that the perceptron algorithm can efficiently converge to a zero-loss solution when the data is linearly separable, often requiring very few updates. Visualizations confirm that the decision boundary evolves meaningfully with each iteration. However, when the data is non-linearly separable, the algorithm fails to reach zero loss, and its score fluctuates unpredictably, highlighting its limitations in such cases.</p>
+
+
 </section>
 
 </main> <!-- /main -->
