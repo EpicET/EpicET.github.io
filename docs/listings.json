@@ -2,13 +2,16 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/blog7/index.html",
-      "/posts/blog6/index.html",
-      "/posts/blog5/index.html",
-      "/posts/blog4/index.html",
-      "/posts/blog3/index.html",
-      "/posts/blog2/index.html",
-      "/posts/blog1/index.html"
+      "/posts/Pneumonia Detection/Final_Project_BP.html",
+      "/posts/Advanced Optimization/index.html",
+      "/posts/Deep Music Classification/index.html",
+      "/posts/Sparse Kernel Machines/index.html",
+      "/posts/Double Descent/index.html",
+      "/posts/Logistic Regression/index.html",
+      "/posts/Perceptron/index.html",
+      "/posts/Auditing Bias/index.html",
+      "/posts/Automated Decision Systems/index.html",
+      "/posts/Classifying Palmer Penguins/index.html"
     ]
   }
 ]

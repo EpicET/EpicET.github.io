@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-05-19">
+<meta name="description" content="In this project, we built a convolutional neural network to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia. Using contrastive learning and a variational autoencoder, we trained models on the Pneumonia Chest X-ray dataset from Kaggle. All models achieved around 78% accuracy, with high precision (up to 93%) but lower recall (as low as 37%). Our results highlight both the potential and limitations of non-CNN classifiers in medical image classification, particularly in contexts where false negatives carry high risk.">
 
-<title>Emmanuel’s CSCI 0451 Blog – My Awesome CSCI 0451 Blog</title>
+<title>Pnuemonia Detection – My Awesome CSCI 0451 Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +22,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6de787833effe4777a6777a5e05fb578.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-6de787833effe4777a6777a5e05fb578.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,35 +88,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>
 
       .quarto-title-block .quarto-title-banner h1,
@@ -111,52 +102,23 @@ ul.task-list li input[type="checkbox"] {
 
       .quarto-title-block .quarto-title-banner {
         color: white;
-background-image: url(img/landscape.png);
+background-image: url(../../img/landscape.png);
 background-size: cover;
       }
 </style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">My Awesome CSCI 0451 Blog</span>
     </a>
   </div>
@@ -167,7 +129,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -190,321 +152,111 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Emmanuel’s CSCI 0451 Blog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Pnuemonia Detection</h1>
+                  <div>
+        <div class="description">
+          In this project, we built a convolutional neural network to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia. Using contrastive learning and a variational autoencoder, we trained models on the Pneumonia Chest X-ray dataset from Kaggle. All models achieved around 78% accuracy, with high precision (up to 93%) but lower recall (as low as 37%). Our results highlight both the potential and limitations of non-CNN classifiers in medical image classification, particularly in contexts where false negatives carry high risk.
+        </div>
+      </div>
+                </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 19, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>Within our blog post, we created a neural network and implemented three different binary classifers trained on chest x-ray image data to detect pneumonia based on images. We used convolution layers to convert images into latent vectors by which we could feed into our various machine learning models: a transformer, an SVM, and a gradient boosting model. Through analyzing the accuracy of each model, we discovered a similar accuracy between the models of around 78% on testing data.</p>
+<p><a href="https://github.com/EpicET/cs0451-pneumonia-detection">Here is the link our code.</a></p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Within our project, we wanted to compare 3 seperate binary classification machine learning models, seeing which is best for an image classification task. Our project attempts to uncover what types of algorithms are best for binary image classification tasks using the pneumonia chest xray dataset, with our models being trained to discern pneumonia based on chest xray images only. This dataset demonstrates a case where finding the most optimal image classifcation algorithm is very important as it could result in saving a life. Our research could also inform which types of algorithms should be considered other important image classification tasks. We found five studies the explored other work done by scholars</p>
+<p>In the study by <span class="citation" data-cites="mobileNet2023">M. R. Rahman, Islam, and Islam (<a href="#ref-mobileNet2023" role="doc-biblioref">2023</a>)</span>, the researchers mainly focus on deep learning algorithms to tackle this same image classification task. Through their research, they discovered the MobileNet CCN gave the best accuracy on two datasets with values of 94.23% and 93.75%.</p>
+<p>In another study titled <span class="citation" data-cites="chexnet2017">Rajpurkar et al. (<a href="#ref-chexnet2017" role="doc-biblioref">2017</a>)</span>, researchers create their own CNN known as CheXNet that detects pneumonia as well as other chest related illnesses (fibrosis, hernia, etc.) that which accuracies ranging from 0.7 to 0.9. With such a large focus on CNNs for this image classification, ww wanted to determine if other kinds of algorithms good for binary classifcation could also be useful image classifiers.</p>
+<p>Recent research has expanded the exploration of deep learning architectures for pneumonia detection. For instance, a study by <span class="citation" data-cites="singh2021pneumonia">Singh, Thomas, and Jaiswal (<a href="#ref-singh2021pneumonia" role="doc-biblioref">2021</a>)</span> compared a custom convolutional neural network (CNN) and a multilayer perceptron (MLP) for classifying chest X-ray images. The CNN achieved an accuracy of 92.63%, outperforming the MLP’s 77.56%, highlighting the efficacy of CNNs in medical image classification tasks (<span class="citation" data-cites="singh2021pneumonia">Singh, Thomas, and Jaiswal (<a href="#ref-singh2021pneumonia" role="doc-biblioref">2021</a>)</span>).</p>
+<p>Another study by <span class="citation" data-cites="rahman2020transfer">T. Rahman et al. (<a href="#ref-rahman2020transfer" role="doc-biblioref">2020</a>)</span> employed transfer learning with various pre-trained CNN models, including AlexNet, ResNet18, DenseNet201, and SqueezeNet, to classify chest X-ray images into normal, bacterial pneumonia, and viral pneumonia categories. Their approach achieved classification accuracies of 98% for normal vs.&nbsp;pneumonia, 95% for bacterial vs.&nbsp;viral pneumonia, and 93.3% for normal, bacterial, and viral pneumonia, demonstrating the potential of transfer learning in enhancing diagnostic performance.</p>
+<p>Furthermore, a study by <span class="citation" data-cites="mabrouk2023ensemble">Mabrouk et al. (<a href="#ref-mabrouk2023ensemble" role="doc-biblioref">2023</a>)</span> proposed an ensemble learning approach combining DenseNet169, MobileNetV2, and Vision Transformer models for pneumonia detection in chest X-ray images. Their ensemble model achieved an accuracy of 93.91% and an F1-score of 93.88%, indicating that integrating multiple deep learning architectures can improve classification performance.</p>
+</section>
+<section id="values-statement" class="level2">
+<h2 class="anchored" data-anchor-id="values-statement">Values Statement</h2>
+<p>The potential users of our project would be primary care clinicians and radiologists who must regularly discern chest-related illnesses through X-rays. These machine learning models trained on chest X-ray image data may help them make more informed decisions if they are trying to discern specifically pneumonia.</p>
+<p>I believe that our work contributes to AI researchers who are studying how to optimize for performance in image classification tasks, especially regarding medical concerns. If it can inform medical researchers on what machine learning models are best at medical image classification, they and their patients can also benefit from greater accuracy in detecting chest-related illnesses.</p>
+<p>Because our models are quite poor at predicting images without pneumonia correctly, they could falsely flag patients as having pneumonia, which may lead them to incur unnecessary medical expenses. Based on the background of these patients, this could seriously affect patients who struggle financially.</p>
+<p>Our group personally enjoyed and had an interest in each of the algorithms that we worked on and took this project as a learning experience to expand our knowledge on what image vectorization and binary classification algorithms are out there and how they differ from what we have learned through our class assignments.</p>
+<p>Based on our experiments, we believe if our project can help inform image classification tasks, especially those in the medical field, then the world can become a better place by being able to help people detect illnesses earlier and possibly save lives.</p>
+</section>
+<section id="materials" class="level2">
+<h2 class="anchored" data-anchor-id="materials">Materials</h2>
+<p>Our data comes from the Pneumonia Chest X-ray dataset on Kaggle. This data came from the Guangzhou Women and Children’s Medical Center. Samples were collected from patients and labels were created by pneumonia specialists, with two specialists making labels and then a third corroborating the label of normal or pneumonia. Our data lacks information regarding the severity or time span of the pneumonia for positive cases, meaning that the model has no clear way of understanding which X-rays should be encoded closer or further away from the normal cases. Additionally, the dataset has a 64% / 36% split, with the majority of X-rays containing positive cases of pneumonia. This bias happens to work out well for mitigating false negatives; however, it makes models have more difficulty understanding when an X-ray is normal.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p><img width="262" alt="image" src="https://github.com/user-attachments/assets/2bd2c6ef-4d1a-4994-ad37-e454924eee0d"> <img width="463" alt="image" src="https://github.com/user-attachments/assets/897d1e6c-110d-4291-bec7-f3ea6cc16fc5"></p>
+<p>As demonstrated before, the models contained much higher precision rates than recall in order to catch more of the positive pneumonia cases due to their costliness as compared to the costs associated with missing a normal case. Within the models, the transformer did the best, with the highest recall and precision of 93% and 41% respectively. The F-1 score of 57% suggests that the model was beginning to learn differences between the classes but still encountered much difficulty. This is also present in the 3-D PCA plot of the latent vectors where it becomes evident that many of the embeddings are caught in an overlapping region where both classes meet. The results suggest that the image embeddings need more fine-tuning to increase accuracy and recall.</p>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>The project accomplished many of the goals that we set out to accomplish during the duration of this project and also failed to meet others. We got a working convolutional neural network to embed the images and learn important features of those images. We correctly identify 93% of all pneumonia cases. On the other hand, we correctly identify less than half of all normal cases. This project demonstrates the difficulty of complex machine learning tasks without good computational resources. Running and auditing the CNN alone takes two hours per run with a GPU. Due to this constraint, we were unable to readily take advantage of all of the data available. Additionally, the binary classification models also took 5–15 minutes depending on the model. The most apparent hurdle in this project was creating a complex model while also being able to run it in a reasonable amount of time. Other pneumonia binary classification projects are able to get higher accuracy through the usage of pre-made ResNet models. These models are trained on millions of images and use residual connections to improve the performance of neural networks. If we had more time, we would do a more thorough error analysis of misclassified normal images to understand what features the model is missing and improve the architecture to capture that feature. Additionally, we would utilize more of the training data without run-time constraints and try adopting residual neural network architecture to improve performance.</p>
+</section>
+<section id="group-contributions" class="level2">
+<h2 class="anchored" data-anchor-id="group-contributions">Group Contributions:</h2>
+<p>Lia did the data preprocessing for the images and all visualizations such as the PCA plot. Furthermore, she made the the contrastive autoencoder, latent vectors, and worked on evaluation metrics for the models. For the blog posts she did the material and methods, results, and conclusions. Cameron worked on XGBoost Model in the project and wrote the introduction, abstract, and values statement of the blog post. Robsan worked on the Support Vector Machine. Emmanuel created the transformer and worked on model evaluation. Broadly adapted code imported from Google colab to be functional on the notebook. For the blog post, he added to the introduction and make did the reference implementation.</p>
+</section>
+<section id="personal-reflection" class="level2">
+<h2 class="anchored" data-anchor-id="personal-reflection">Personal Reflection:</h2>
+<p>Throughout this process, I found myself engaging in quite a bit of research on models similar to mine. I also had to learn how to gather information from various sources to create a transformer tailored to my specific needs. My perspective on executing machine learning projects has shifted as well; I had never considered employing pipelining models or leveraging multiple models to generate predictions on a dataset.</p>
+<p>Overall, I take pride in this project. I believe the topic struck an excellent balance between being intriguing, challenging, and relevant. The fact that we were able to successfully implement it and achieve solid accuracy is incredibly rewarding.</p>
+<p>Additionally, I’ve enhanced my skills with GitHub and gained a better understanding of setting rules and branch protections, which will undoubtedly be valuable in the future. Moving forward, I plan to focus more on organizing pair programming sessions and fostering improved code review practices.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-mabrouk2023ensemble" class="csl-entry" role="listitem">
+Mabrouk, Souhaib, Mohamed Ali Mahjoub, Fatma Hamdi, Slim Messaoud, and Mohamed Jmaiel. 2023. <span>“Ensemble Learning Model for Pneumonia Detection in Chest x-Ray Images Using DenseNet, MobileNet and Vision Transformers.”</span> <em>arXiv Preprint arXiv:2312.07965</em>. <a href="https://arxiv.org/abs/2312.07965">https://arxiv.org/abs/2312.07965</a>.
+</div>
+<div id="ref-mobileNet2023" class="csl-entry" role="listitem">
+Rahman, Md Raihanur, Md Rabiul Islam, and Md Hafizul Islam. 2023. <span>“Pneumonia Detection Using MobileNet CNN Model.”</span> <em>Journal of Healthcare Engineering</em> 2023: 1–12. <a href="https://doi.org/10.1155/2023/6672181">https://doi.org/10.1155/2023/6672181</a>.
+</div>
+<div id="ref-rahman2020transfer" class="csl-entry" role="listitem">
+Rahman, Tawsifur, Ahsan Khandakar, Yazan Qiblawey, Asmaa Tahir, Serkan Kiranyaz, S. B. M. Kashem, Md. Rashidul Islam, Md. Taufiq Islam, and M. E. H. Chowdhury. 2020. <span>“Transfer Learning with Deep Convolutional Neural Network (CNN) for Pneumonia Detection Using Chest x-Ray.”</span> <em>arXiv Preprint arXiv:2004.06578</em>. <a href="https://arxiv.org/abs/2004.06578">https://arxiv.org/abs/2004.06578</a>.
+</div>
+<div id="ref-chexnet2017" class="csl-entry" role="listitem">
+Rajpurkar, Pranav, Jeremy Irvin, Kaylie Zhu, Brandon Yang, Hershel Mehta, Tony Duan, Daisy Ding, et al. 2017. <span>“CheXNet: Radiologist-Level Pneumonia Detection on Chest x-Rays with Deep Learning.”</span> <em>arXiv Preprint arXiv:1711.05225</em>. <a href="https://arxiv.org/pdf/1711.05225">https://arxiv.org/pdf/1711.05225</a>.
+</div>
+<div id="ref-singh2021pneumonia" class="csl-entry" role="listitem">
+Singh, Bhupendra, Supriya Thomas, and Amandeep Jaiswal. 2021. <span>“Pneumonia Detection Using Deep Learning.”</span> <em>International Journal of Engineering Research &amp; Technology (IJERT)</em> 10 (7): 84–88. <a href="https://www.researchgate.net/publication/353590019_Pneumonia_Detection_using_Deep_Learning">https://www.researchgate.net/publication/353590019_Pneumonia_Detection_using_Deep_Learning</a>.
+</div>
+</div>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1747627200000" data-listing-file-modified-sort="1747702165762" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1473">
-<div class="thumbnail">
-<p><a href="./posts/Pneumonia Detection/Final_Project_BP.html" class="no-external"></a></p><a href="./posts/Pneumonia Detection/Final_Project_BP.html" class="no-external">
-<p><img loading="lazy" src="./posts/Pneumonia Detection/image.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/Pneumonia Detection/Final_Project_BP.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Pneumonia Detection/Final_Project_BP.html" class="no-external">Pnuemonia Detection</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Pneumonia Detection/Final_Project_BP.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Pneumonia Detection/Final_Project_BP.html" class="no-external">In this project, we built a convolutional neural network to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia. Using contrastive learning and a variational autoencoder, we trained models on the Pneumonia Chest X-ray dataset from Kaggle. All models achieved around 78% accuracy, with high precision (up to 93%) but lower recall (as low as 37%). Our results highlight both the potential and limitations of non-CNN classifiers in medical image classification, particularly in contexts where false negatives carry high risk.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Pneumonia Detection/Final_Project_BP.html" class="no-external">
-<div class="listing-date">
-May 19, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1746590400000" data-listing-file-modified-sort="1747611310286" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="665">
-<div class="thumbnail">
-<p><a href="./posts/Advanced Optimization/index.html" class="no-external"></a></p><a href="./posts/Advanced Optimization/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Advanced Optimization/index_files/figure-html/cell-7-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Advanced Optimization/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Advanced Optimization/index.html" class="no-external">Advanced Optimization</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Advanced Optimization/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Advanced Optimization/index.html" class="no-external">Blog Post 8</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Advanced Optimization/index.html" class="no-external">
-<div class="listing-date">
-May 7, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1746590400000" data-listing-file-modified-sort="1746628787556" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="./posts/Deep Music Classification/index.html" class="no-external"></a></p><a href="./posts/Deep Music Classification/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/Deep Music Classification/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Deep Music Classification/index.html" class="no-external">Deep Music Classification</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Deep Music Classification/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Deep Music Classification/index.html" class="no-external">Blog Post 9</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Deep Music Classification/index.html" class="no-external">
-<div class="listing-date">
-May 7, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1745899200000" data-listing-file-modified-sort="1747705662694" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="649">
-<div class="thumbnail">
-<p><a href="./posts/Sparse Kernel Machines/index.html" class="no-external"></a></p><a href="./posts/Sparse Kernel Machines/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Sparse Kernel Machines/index_files/figure-html/cell-3-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Sparse Kernel Machines/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Sparse Kernel Machines/index.html" class="no-external">Sparse Kernel Machines</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Sparse Kernel Machines/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Sparse Kernel Machines/index.html" class="no-external">Blog Post 7</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Sparse Kernel Machines/index.html" class="no-external">
-<div class="listing-date">
-Apr 29, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1745380800000" data-listing-file-modified-sort="1747611679704" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="411">
-<div class="thumbnail">
-<p><a href="./posts/Double Descent/index.html" class="no-external"></a></p><a href="./posts/Double Descent/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Double Descent/index_files/figure-html/cell-4-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Double Descent/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Double Descent/index.html" class="no-external">Overfitting and Double Descents</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Double Descent/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Double Descent/index.html" class="no-external">Blog Post 6</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Double Descent/index.html" class="no-external">
-<div class="listing-date">
-Apr 23, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1744171200000" data-listing-file-modified-sort="1747244746861" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="754">
-<div class="thumbnail">
-<p><a href="./posts/Logistic Regression/index.html" class="no-external"></a></p><a href="./posts/Logistic Regression/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Logistic Regression/index_files/figure-html/cell-5-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Logistic Regression/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Logistic Regression/index.html" class="no-external">Implementing Logistic Regression</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Logistic Regression/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Logistic Regression/index.html" class="no-external">Blog Post 5</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Logistic Regression/index.html" class="no-external">
-<div class="listing-date">
-Apr 9, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1743393600000" data-listing-file-modified-sort="1747148201741" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="88">
-<div class="thumbnail">
-<p><a href="./posts/Perceptron/index.html" class="no-external"></a></p><a href="./posts/Perceptron/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Perceptron/index_files/figure-html/cell-4-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Perceptron/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Perceptron/index.html" class="no-external">Implementing the Perceptron Algorithm</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Perceptron/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Perceptron/index.html" class="no-external">Blog Post 4</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Perceptron/index.html" class="no-external">
-<div class="listing-date">
-Mar 31, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1741752000000" data-listing-file-modified-sort="1745028034968" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1007">
-<div class="thumbnail">
-<p><a href="./posts/Auditing Bias/index.html" class="no-external"></a></p><a href="./posts/Auditing Bias/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Auditing Bias/index_files/figure-html/cell-14-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Auditing Bias/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Auditing Bias/index.html" class="no-external">Auditing Bias</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Auditing Bias/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Auditing Bias/index.html" class="no-external">Blog Post 3</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Auditing Bias/index.html" class="no-external">
-<div class="listing-date">
-Mar 12, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1739941200000" data-listing-file-modified-sort="1747704645692" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="8">
-<div class="thumbnail">
-<p><a href="./posts/Automated Decision Systems/index.html" class="no-external"></a></p><a href="./posts/Automated Decision Systems/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/Automated Decision Systems/index_files/figure-html/cell-6-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/Automated Decision Systems/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Automated Decision Systems/index.html" class="no-external">Design and Impact of Automated Decision Systems</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Automated Decision Systems/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Automated Decision Systems/index.html" class="no-external">Blog Post 2</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Automated Decision Systems/index.html" class="no-external">
-<div class="listing-date">
-Feb 19, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1739336400000" data-listing-file-modified-sort="1745028034774" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="841">
-<div class="thumbnail">
-<p><a href="./posts/Classifying Palmer Penguins/index.html" class="no-external"></a></p><a href="./posts/Classifying Palmer Penguins/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/Classifying Palmer Penguins/penguins.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/Classifying Palmer Penguins/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/Classifying Palmer Penguins/index.html" class="no-external">Classifying Palmer Penguins</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/Classifying Palmer Penguins/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/Classifying Palmer Penguins/index.html" class="no-external">Blog Post 1</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/Classifying Palmer Penguins/index.html" class="no-external">
-<div class="listing-date">
-Feb 12, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
