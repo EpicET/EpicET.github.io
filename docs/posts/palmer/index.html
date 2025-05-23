@@ -8,7 +8,7 @@
 
 <meta name="author" content="Emmanuel Towner">
 <meta name="dcterms.date" content="2025-02-12">
-<meta name="description" content="In this blog post, I take the Palmer Penguins dataset and try to determine the best features to be used to determine the species of a penguin based on its measurements.">
+<meta name="description" content="In this blog post, I analyze the Palmer Penguins dataset to identify the best features for determining penguin species based on their measurements.">
 
 <title>Classifying Palmer Penguins – EpicET’s Site</title>
 <style>
@@ -169,7 +169,7 @@ background-size: cover;
       <h1 class="title">Classifying Palmer Penguins</h1>
                   <div>
         <div class="description">
-          In this blog post, I take the Palmer Penguins dataset and try to determine the best features to be used to determine the species of a penguin based on its measurements.
+          In this blog post, I analyze the Palmer Penguins dataset to identify the best features for determining penguin species based on their measurements.
         </div>
       </div>
                 </div>
@@ -219,7 +219,7 @@ background-size: cover;
 </div>
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>In this blog post, I take the Palmer Penguins dataset and try to determine the beIn this blog post, I analyze the Palmer Penguins dataset to identify the best features for determining penguin species based on their measurements. First, I create two figures and a table to explore the relationships between different features. Next, I utilize Scikit-learn’s feature selection methods, employing chi-squared tests to select two numerical features and one categorical feature. With these features, I train and test a logistic regression model. The model demonstrates reasonable accuracy; however, to gain a better understanding of the results, I visualize the decision regions and present a confusion matrix.st features to be used to determine the species of a penguin based on its measurements. Firstly, I create two figures and a table to analysize the relationships between features. Then I use sci-kit learns feature selection with chi-squared tests to pick 2 numerical features and 1 categorical feature. Then using those features, I train and test a logistic regression model. The model was fairly accurate but to understand the results better, I plot the decision regions and use a confusion matrix.</p>
+<p>In this blog post, I analyze the Palmer Penguins dataset to identify the best features for determining penguin species based on their measurements. First, I create two figures and a table to explore the relationships between different features. Next, I utilize Scikit-learn’s feature selection methods, employing chi-squared tests to select two numerical features and one categorical feature. With these features, I train and test a logistic regression model. The model demonstrates reasonable accuracy; however, to gain a better understanding of the results, I visualize the decision regions and present a confusion matrix.st features to be used to determine the species of a penguin based on its measurements. Firstly, I create two figures and a table to analysize the relationships between features. Then I use sci-kit learns feature selection with chi-squared tests to pick 2 numerical features and 1 categorical feature. Then using those features, I train and test a logistic regression model. The model was fairly accurate but to understand the results better, I plot the decision regions and use a confusion matrix.</p>
 <div id="cell-2" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
