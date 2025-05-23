@@ -17,9 +17,7 @@ format:
     title-block-banner: img/landscape.png
     title-block-banner-color: white
     respect-user-color-scheme: true
-    theme:
-      light: [cosmo, theme.scss]
-      dark: [cosmo, theme-dark.scss]
+    theme: cosmo
     css: styles.css
 
 
