@@ -1,0 +1,5 @@
+execute:
+  cache: true
+  freeze: auto
+  warning: false     
+  error: false      
