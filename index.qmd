@@ -1,5 +1,5 @@
 ---
-title: "Emmanuel's CSCI 0451 Blog"
+title: "Emmanuel's GitHub Blog"
 listing:
   contents: posts
   sort: "date desc"

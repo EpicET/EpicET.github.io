@@ -3,20 +3,20 @@ project:
   output-dir: docs
 
 website:
-  title: "My Awesome CSCI 0451 Blog"
+  title: "EpicET's Site"
   navbar:
     background: "#112a39"
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com//EpicET.github.io
+      
 
 format:
   html:
     title-block-banner: img/landscape.png
     title-block-banner-color: white
+    respect-user-color-scheme: true
     theme: cosmo
     css: styles.css
 

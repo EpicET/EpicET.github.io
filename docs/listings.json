@@ -2,16 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/Pneumonia Detection/Final_Project_BP.html",
-      "/posts/Advanced Optimization/index.html",
-      "/posts/Deep Music Classification/index.html",
-      "/posts/Sparse Kernel Machines/index.html",
-      "/posts/Double Descent/index.html",
-      "/posts/Logistic Regression/index.html",
-      "/posts/Perceptron/index.html",
-      "/posts/Auditing Bias/index.html",
-      "/posts/Automated Decision Systems/index.html",
-      "/posts/Classifying Palmer Penguins/index.html"
+      "/posts/pneumonia/Final_Project_BP.html",
+      "/posts/palmer/index.html"
     ]
   }
 ]

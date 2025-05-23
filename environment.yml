@@ -1,0 +1,31 @@
+name: ml-0451
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+dependencies:
+  - python=3.9
+  - matplotlib
+  - nb_conda
+  - numpy
+  - pandas
+  - pytorch
+  - scikit-learn
+  - seaborn
+  - torchdata
+  - torchtext
+  - torchvision
+  - kagglehub
+  - plotly
+  - ipywidgets
+  - torchinfo
+  - transformers
+  - nbdime
+  - nbstripout
+  - ucimlrepo
+  - mlxtend
+  - pandoc
+  - jupyter-cache
+prefix: /opt/anaconda3/envs/ml-0451
