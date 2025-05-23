@@ -1,0 +1,42 @@
+name: Build Check
+
+on:
+  push:
+    branches: [main, implement_ci]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Cache Conda environment
+        id: cache-conda
+        uses: actions/cache@v4
+        with:
+          path: ~/conda_pkgs_dir
+          key: conda-${{ runner.os }}-${{ hashFiles('**/environment.yml') }}
+          restore-keys: |
+            conda-${{ runner.os }}-
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          environment-file: environment.yml
+          activate-environment: ml-0451
+          use-mamba: true
+          cache-environment: false
+          conda-pkgs-dir: ~/conda_pkgs_dir
+
+      - name: Render site
+        run: quarto render
+        env:
+          PATH: /usr/share/miniconda/bin:$PATH

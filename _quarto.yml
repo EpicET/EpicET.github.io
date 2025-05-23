@@ -3,20 +3,23 @@ project:
   output-dir: docs
 
 website:
-  title: "Emmanuel Towner"
+  title: "EpicET's Site"
   navbar:
     background: "#112a39"
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/EpicET/EpicET.github.io
+        href: https://github.com//EpicET.github.io
       
 
 format:
   html:
     title-block-banner: img/landscape.png
     title-block-banner-color: white
-    theme: cosmo
+    respect-user-color-scheme: true
+    theme:
+      light: [cosmo, theme.scss]
+      dark: [cosmo, theme-dark.scss]
     css: styles.css
 
 
