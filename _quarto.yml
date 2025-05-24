@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "EpicET's Site"
+  title: "Emmanuel's Site"
   navbar:
     background: "#112a39"
     right:
