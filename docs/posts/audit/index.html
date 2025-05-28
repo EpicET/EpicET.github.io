@@ -242,6 +242,8 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
 <p>My goal was to make a predicition of employment status based on various demographic excluding race using a subset of data from the American Community Service focused on Massachusetts residents in 2023. Based on the data of the 58,500 residents, only half were employed. Most of the time men, people without disabilities, and people who born abroad or with no citizensip had higher proportions of employment. The model I used was sklearns Decision Tree Classifier because results are easy to interpret. I tuned complexity by I using GridSearchCV which cross-validated that the best depth out of the numbers I provided was 10 which overall accuracy 0.82. The different group accuracies weren’t that much different. Auditing my model showed that white people lead in PPV and FNR while Asians lead in TPR and FPR rates. In these summary I left races 5 and 6 because their data often had many missing values. Based on those values, my model failed approximate error balance and statistical parity but satisfied calibration. The plot that used the fixed PPV values and p values to graph feasible FPR and FNR combinations between Black and White residents.</p>
 <div id="cell-2" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folktables <span class="im">import</span> ACSDataSource, ACSEmployment, BasicProblem, adult_filter</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -254,6 +256,7 @@ window.Quarto = {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>acs_data <span class="op">=</span> data_source.get_data(states<span class="op">=</span>[STATE], download<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>acs_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 
@@ -414,9 +417,12 @@ window.Quarto = {
 </div>
 </div>
 <div id="cell-3" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No RELP avaiable </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>possible_features<span class="op">=</span>[<span class="st">'AGEP'</span>, <span class="st">'SCHL'</span>, <span class="st">'MAR'</span>, <span class="st">'DIS'</span>, <span class="st">'ESP'</span>, <span class="st">'CIT'</span>, <span class="st">'MIG'</span>, <span class="st">'MIL'</span>, <span class="st">'ANC'</span>, <span class="st">'NATIVITY'</span>, <span class="st">'DEAR'</span>, <span class="st">'DEYE'</span>, <span class="st">'DREM'</span>, <span class="st">'SEX'</span>, <span class="st">'RAC1P'</span>, <span class="st">'ESR'</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>acs_data[possible_features].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 
@@ -552,9 +558,14 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="feature-selection-and-data-split">Feature selection And Data Split</h3>
 <p>Adapted from Professor Phil’s code.</p>
 <div id="cell-6" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>features_to_use <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> possible_features <span class="cf">if</span> f <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"ESR"</span>, <span class="st">"RAC1P"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div id="cell-7" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>EmploymentProblem <span class="op">=</span> BasicProblem(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    features<span class="op">=</span>features_to_use,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    target<span class="op">=</span><span class="st">'ESR'</span>,</span>
@@ -568,6 +579,7 @@ window.Quarto = {
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> obj <span class="kw">in</span> [features, label, group]:</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(obj.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>(73126, 14)
 (73126,)
@@ -575,20 +587,28 @@ window.Quarto = {
 </div>
 </div>
 <div id="cell-8" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test, group_train, group_test <span class="op">=</span> train_test_split(</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    features, label, group, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div id="cell-9" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(X_train, columns <span class="op">=</span> features_to_use)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"race"</span>] <span class="op">=</span> group_train</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"label"</span>] <span class="op">=</span> y_train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>This method allows the conversion of race numbers to more helpful categorical labels. Some of them have been shortened because they were too long. 1. SPAA - “American Indian and Alaska Native tribes specified, or American Indian or AlaskaNative, not specified and no other races”. 2. NPI - Native Hawaiian and Other Pacific Islander alone</p>
 <div id="cell-11" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_race(df: pd.DataFrame):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.sort_values(by<span class="op">=</span><span class="st">'race'</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'race'</span>] <span class="op">=</span> df[<span class="st">'race'</span>].replace({<span class="dv">1</span>: <span class="st">"White"</span>, <span class="dv">2</span>: <span class="st">"Black"</span>, <span class="dv">3</span>: <span class="st">"N. American"</span>, <span class="dv">4</span>:<span class="st">"N. Alaskan"</span>, </span>
@@ -598,15 +618,19 @@ window.Quarto = {
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'race'</span>] <span class="op">=</span> pd.Categorical(df[<span class="st">'race'</span>])</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="basic-descriptives" class="level3">
 <h3 class="anchored" data-anchor-id="basic-descriptives">Basic Descriptives</h3>
 <div id="cell-13" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save to the original for calculations and copying</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>relabeled <span class="op">=</span> df.copy() </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>relabeled <span class="op">=</span> convert_race(relabeled)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>relabeled</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <div>
 
@@ -854,7 +878,10 @@ window.Quarto = {
 <li>The number of indiviuals in this dataframe are:</li>
 </ol>
 <div id="cell-15" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The number of indiviuals in this df are"</span>, df.shape[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>The number of indiviuals in this df are 58500</code></pre>
 </div>
@@ -863,10 +890,13 @@ window.Quarto = {
 <li>The proportion of employed individuals are:</li>
 </ol>
 <div id="cell-17" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>emp <span class="op">=</span> df[df[<span class="st">'label'</span>] <span class="op">==</span> <span class="va">True</span>][[<span class="st">"label"</span>]].size <span class="co"># 29703</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> df[<span class="st">'label'</span>].size <span class="co"># 58500</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>emp_prop <span class="op">=</span> emp <span class="op">/</span> total</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The proportion of employed indiviuals are"</span>, emp_prop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>The proportion of employed indiviuals are 0.5077435897435898</code></pre>
 </div>
@@ -875,7 +905,10 @@ window.Quarto = {
 <li>The population of each group is:</li>
 </ol>
 <div id="cell-19" class="cell" data-execution_count="32">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>relabeled.groupby(<span class="st">'race'</span>)[[<span class="st">'label'</span>]].aggregate(<span class="st">'sum'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <div>
 
@@ -935,7 +968,10 @@ window.Quarto = {
 <li>The proportion of employed people in each group are:</li>
 </ol>
 <div id="cell-22" class="cell" data-execution_count="33">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>relabeled.groupby(<span class="st">'race'</span>)[[<span class="st">'label'</span>]].aggregate(<span class="st">'mean'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 
@@ -994,6 +1030,8 @@ window.Quarto = {
 <li>Intersectional Trends</li>
 </ol>
 <div id="cell-24" class="cell" data-execution_count="34">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1012,6 +1050,7 @@ window.Quarto = {
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>handles, _ <span class="op">=</span> plt2.get_legend_handles_labels()</span>
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>plt2.legend(handles<span class="op">=</span>handles, title<span class="op">=</span><span class="st">'Disability'</span>, labels<span class="op">=</span>[<span class="st">'Has disability'</span>, <span class="st">'No disability'</span>])</span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1022,6 +1061,8 @@ window.Quarto = {
 </div>
 <p>In these graphs, we observe the intersectionality of employment rates based on gender and disability status. Generally, men and individuals without disabilities tend to be more likely to secure jobs. Several factors contribute to this disparity. For one, women and people with disabilities often face discrimination from employers. Additionally, the number of applicants from these groups could also play a role; even though more women are entering the workforce, many continue to take on childcare responsibilities at home. Moreover, “disability” encompasses a wide range of conditions, making it difficult to determine which individuals are capable of working and which are not. This uncertainty likely contributes to the lower employment rates among these groups. Interestingly, it’s worth noting that for Black Americans, Native Americans, and SPAA, there are more women employed than men.In this we see intersectionality between employment based on the sex of the person or whether they have a disability. As we can see in both graphs generally male and able bodied people are more likely to be employed. Multiple factors can contribute to this desparity. One is that women and people with disabilities are discriminated against by employers. Another is also considering how many of them are applying for jobs. For women, even with more of them joining the workforce, they may be more likely to doing childcare at home. Because disabilites is such a broad it’s hard which may be capable of working and those that aren’t. This probably a big factor why relatively few are employed. Something I noticed is that for Black Americans, Native Americans and SPAA more females are employed than males.</p>
 <div id="cell-26" class="cell" data-execution_count="35">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt3 <span class="op">=</span> sns.barplot(relabeled, x <span class="op">=</span> <span class="st">"race"</span>, y <span class="op">=</span> <span class="st">"label"</span>, hue<span class="op">=</span><span class="st">"CIT"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt3.set_xlabel(<span class="st">"Race"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt3.set_ylabel(<span class="st">"Employment"</span>)</span>
@@ -1029,6 +1070,7 @@ window.Quarto = {
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>status <span class="op">=</span> [<span class="st">'Born in US'</span>, <span class="st">'Born in US Territories'</span>, <span class="st">'Born Abroad'</span>, <span class="st">'US by naturalization'</span>, <span class="st">'Not a citizen'</span>]</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>plt3.legend(handles<span class="op">=</span>handles, title<span class="op">=</span><span class="st">'Citizenship'</span>, labels<span class="op">=</span>status, loc<span class="op">=</span><span class="st">'center left'</span>, bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>, <span class="fl">0.5</span>))</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1043,6 +1085,8 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="training-model">Training Model</h3>
 <p>The decision tree classifier was one of the recommedations given by the professor and scikit-learn said the results are easy to interpret. In order to find the best depth for the model training, I used GridSearchCV which cross validated the best parameters to use.</p>
 <div id="cell-29" class="cell" data-execution_count="36">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
@@ -1061,6 +1105,7 @@ window.Quarto = {
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>best_dtree.predict(X_train)</span>
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>best_dtree.score(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best params {'max_depth': 10}</code></pre>
 </div>
@@ -1073,10 +1118,13 @@ window.Quarto = {
 <section id="testing-model" class="level3">
 <h3 class="anchored" data-anchor-id="testing-model">Testing model</h3>
 <div id="cell-32" class="cell" data-execution_count="37">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> best_dtree.predict(X_test)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>score <span class="op">=</span> best_dtree.score(X_test, y_test)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test score"</span>, score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test score 0.821892520169561</code></pre>
 </div>
@@ -1089,13 +1137,18 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="overall-measures">Overall Measures</h3>
 <p>The overall accuracy:</p>
 <div id="cell-36" class="cell" data-execution_count="38">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(pred <span class="op">==</span> y_test).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>np.float64(0.821892520169561)</code></pre>
 </div>
 </div>
 <p>Here we calculate the PPV, the false negative and false positive rate</p>
 <div id="cell-38" class="cell" data-execution_count="39">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tn, fp, fn, tp <span class="op">=</span> confusion_matrix(y_test, pred).ravel()</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>ppv <span class="op">=</span> tp <span class="op">/</span> (tp <span class="op">+</span> fp)</span>
@@ -1105,6 +1158,7 @@ window.Quarto = {
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Overall PPV:"</span>, ppv)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Overall false negative rate:"</span>, fnr)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Overall false positive rate:"</span>, fpr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Overall PPV: 0.7938385705483673
 Overall false negative rate: 0.12639001898562516
@@ -1117,6 +1171,8 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <h3 class="anchored" data-anchor-id="by-group-measures">By-Group Measures</h3>
 <p>This is the accuracy by group:</p>
 <div id="cell-42" class="cell" data-execution_count="40">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> df[<span class="st">"race"</span>].unique() <span class="co"># Need race as numbers in order to compare with group_test</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>audit <span class="op">=</span> pd.DataFrame(groups, columns<span class="op">=</span>[<span class="st">"race"</span>])</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1128,6 +1184,7 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>audit[<span class="st">"accuracy"</span>] <span class="op">=</span> accuracies</span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>audit <span class="op">=</span> convert_race(audit)</span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>audit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="40">
 <div>
 
@@ -1190,6 +1247,8 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <p>Basides NPI and SPAA, the accuracies are rather similar to each other.</p>
 <p>This is the PPV, the false negative and false positive rate by group:</p>
 <div id="cell-45" class="cell" data-execution_count="41">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ppvs <span class="op">=</span> []</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>tprs <span class="op">=</span> []</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>fnrs <span class="op">=</span> []</span>
@@ -1227,6 +1286,7 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>audit[<span class="st">"fpr"</span>] <span class="op">=</span> fprs</span>
 <span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>audit[<span class="st">"fnr"</span>] <span class="op">=</span> fnrs</span>
 <span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>audit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="41">
 <div>
 
@@ -1327,6 +1387,8 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <h3 class="anchored" data-anchor-id="bias-measures">Bias Measures</h3>
 <p>Using code adapted from <a href="https://machinelearningmastery.com/calibrated-classification-model-in-scikit-learn/">from Machine Learning Master</a> and sklearn documentation, I used a sci-kit learn’s calibration curve to diagnose the calibration:</p>
 <div id="cell-47" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.calibration <span class="im">import</span> calibration_curve </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>y_prob <span class="op">=</span> best_dtree.predict_proba(X_test)[:, <span class="dv">1</span>] <span class="co"># Gets the probability of positive values</span></span>
@@ -1353,6 +1415,7 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>cal.xlabel(<span class="st">"Average Probability"</span>)</span>
 <span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>cal.ylabel(<span class="st">"Fraction of Positive"</span>)</span>
 <span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>cal.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   race  employed  avg_predicted_probs
 0     1  0.509466             0.510189
@@ -1375,6 +1438,8 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <p>The above graph and table shows that my model is nearly calibrated, meaning that the model usually predicts probabilites that are the same as the real probabilities.</p>
 <p>Approximate error balance rate: Looking at the table above we can see that the model does not meet approximate error rate balance for groups. The groups differ in true and false positive rates. The code below double checks.</p>
 <div id="cell-50" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, row1 <span class="kw">in</span> audit.iterrows():</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    equal <span class="op">=</span> <span class="va">True</span><span class="op">;</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    race1 <span class="op">=</span> row1[<span class="st">'race'</span>]</span>
@@ -1390,12 +1455,15 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(equal <span class="op">!=</span> <span class="va">True</span>):</span>
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>White did not have an equal TPR or FPR as Black</code></pre>
 </div>
 </div>
 <p>Statistical parity:</p>
 <div id="cell-52" class="cell" data-execution_count="47">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> []</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> group <span class="kw">in</span> groups:</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span> (pred <span class="op">==</span> <span class="va">True</span>)[group_test <span class="op">==</span> group].mean()</span>
@@ -1404,6 +1472,7 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>parity<span class="op">=</span> pd.DataFrame(groups, columns<span class="op">=</span>[<span class="st">"race"</span>])</span>
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>parity[<span class="st">"prob"</span>] <span class="op">=</span> probs</span>
 <span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>parity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display" data-execution_count="47">
 <div>
 
@@ -1469,10 +1538,13 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <h3 class="anchored" data-anchor-id="feasible-fnr-and-fpr-rates">Feasible FNR and FPR Rates</h3>
 <p>Add prevalance to data table</p>
 <div id="cell-56" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>audit[<span class="st">"p"</span>] <span class="op">=</span> (<span class="dv">1</span> <span class="op">+</span> (audit[<span class="st">"tpr"</span>] <span class="op">/</span> audit[<span class="st">"fpr"</span>]) <span class="op">*</span> ((<span class="dv">1</span> <span class="op">-</span> audit[<span class="st">"ppv"</span>])<span class="op">/</span>(audit[<span class="st">"ppv"</span>]))) <span class="op">**</span> <span class="op">-</span><span class="dv">1</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>audit[<span class="st">"p"</span>] <span class="op">=</span> audit[<span class="st">"p"</span>].fillna(<span class="dv">0</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>audit</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(audit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>          race  accuracy       ppv       tpr       fpr       fnr         p
 0        White  0.824338  0.802492  0.869107  0.222158  0.130893  0.509466
@@ -1487,6 +1559,8 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 </div>
 <p>Here I plot the feasibility of FPR and FNR for Black and White groups.</p>
 <div id="cell-58" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to only include Black and White groups</span></span>
@@ -1532,6 +1606,7 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"False Positive Rate"</span>)</span>
 <span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Feasible (FNR, FPR) combinations"</span>)</span>
 <span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1551,6 +1626,10 @@ Overall false positive rate: 0.5358955161800183</code></pre>
 <li><p>My model failed tests of statistical parity and error rate balance, which means that it does display problematic biases.</p></li>
 <li><p>I think transparency might be an issue if the algorithm is not shared with the public, as people would unknowingly be judged by an algorithm. I’m unsure if this is bias, but smaller populations have very weird data points that probably don’t accurately reflect what’s going on. I feel like there could be some social bias or judgment as a result of this algorithm, especially for people who aren’t employed or predicted to not be employed.</p></li>
 </ol>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>Adapted code from Professor Phil Chodrow at Middlebury College in his class CSCI 0451: Machine Learning.</p>
 
 
 </section>
