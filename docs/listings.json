@@ -3,7 +3,10 @@
     "listing": "/index.html",
     "items": [
       "/posts/pneumonia/Final_Project_BP.html",
+      "/posts/optimization/index.html",
+      "/posts/kernel/index.html",
       "/posts/descent/index.html",
+      "/posts/logistic/index.html",
       "/posts/audit/index.html",
       "/posts/palmer/index.html"
     ]
