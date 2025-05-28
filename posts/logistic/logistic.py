@@ -55,6 +55,7 @@ class LogisticRegression(LinearModel):
             X, torch.Tensor: the feature matrix. X.size() == (n, p), 
             where n is the number of data points and p is the 
             number of features.  
+            y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
 
         RETURNS: 
             L(w), torch.Tensor: the empirical risk.
@@ -66,8 +67,8 @@ class LogisticRegression(LinearModel):
 
     def grad(self, X: torch.Tensor, y: torch.Tensor):
         """
-        Compute the gradient of empirical risk ∇L(w)
-        
+        Compute the gradient of empirical risk ∇L(w) with respect to model parameters.
+
         ARGUMENTS:
             X, torch.Tensor: the feature matrix. X.size() == (n, p), 
             where n is the number of data points and p is the 
@@ -97,10 +98,11 @@ class GradientDescentOptimizer():
             X, torch.Tensor: the feature matrix. X.size() == (n, p), 
             where n is the number of data points and p is the 
             number of features.
-
             y, torch.Tensor: the target vector.  y.size() = (n,). The possible labels for y are {0, 1}
             alpha, float: the learning rate.
             beta, float: the momentum term.
+        SIDE EFFECTS:
+            Updates model parameters (self.model.w) in-place.
         """
         loss = self.model.loss(X, y)
         # print(f"Loss: {loss.item()}")
