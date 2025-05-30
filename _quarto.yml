@@ -20,8 +20,6 @@ website:
 
 format:
   html:
-    title-block-banner: img/network.jpeg
-    title-block-banner-color: white
     respect-user-color-scheme: true
     theme:
       light: flatly

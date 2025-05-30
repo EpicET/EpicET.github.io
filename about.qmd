@@ -6,11 +6,11 @@ about:
   links:
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/emmanuel-t-12b558211/
     - icon: github
       text: Github
       href: https://github.com/EpicET
 
 ---
 
-Hello! I'm Emmanuel Towner, a computer science major at Middlebury College. This site shows work from my courses and solo projects. 
+Hello! I'm Emmanuel Towner, a computer science major at Middlebury College.
