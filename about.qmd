@@ -13,4 +13,4 @@ about:
 
 ---
 
-Hello! I'm Emmanuel Towner, a computer science major at Middlebury College. This site shows work from my courses and solo projects. 
+Hello! I'm Emmanuel Towner, a computer science major at Middlebury College.
