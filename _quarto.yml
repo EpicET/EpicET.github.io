@@ -1,9 +1,9 @@
 project:
   type: website
   output-dir: docs
-
+  
 website:
-  title: "Emmanuel's Site"
+  title: Home"
   navbar:
     background: "#112a39"
     right:

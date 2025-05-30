@@ -1,5 +1,5 @@
 ---
-title: "Emmanuel's GitHub Blog"
+title: "Machine Learning Blog"
 listing:
   contents: posts
   sort: "date desc"
