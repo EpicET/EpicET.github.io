@@ -10,6 +10,12 @@ website:
       - about.qmd
       - icon: github
         href: https://github.com//EpicET.github.io
+  announcement: 
+    icon: info-circle
+    dismissable: true
+    content: "**Alert** - This website is undergoing redevelopment. Some content or features may change during this period."
+    type: primary
+    position: below-navbar
       
 
 format:
