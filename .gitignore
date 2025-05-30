@@ -4,4 +4,4 @@
 /.quarto/
 *.ipynb_checkpoints
 .vscode/
-drafts/
+/.drafts/
