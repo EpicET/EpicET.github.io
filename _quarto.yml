@@ -24,7 +24,7 @@ format:
     title-block-banner-color: white
     respect-user-color-scheme: true
     theme:
-      light: cosmo
+      light: flatly
       dark: darkly
     css: styles.css
 
