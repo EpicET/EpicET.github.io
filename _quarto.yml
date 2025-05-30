@@ -5,11 +5,11 @@ project:
 website:
   title: "Home"
   navbar:
-    background: "#112a39"
+    background: "secondary"
     right:
       - about.qmd
       - icon: github
-        href: https://github.com//EpicET.github.io
+        href: https://github.com/EpicET
   announcement: 
     icon: info-circle
     dismissable: true
