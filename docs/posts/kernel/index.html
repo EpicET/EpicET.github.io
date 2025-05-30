@@ -8,7 +8,7 @@
 
 <meta name="author" content="Emmanuel Towner">
 <meta name="dcterms.date" content="2025-04-29">
-<meta name="description" content="Blog Post 7">
+<meta name="description" content="In this post, I implement a sparse kernel logistic regression using radial basis function (RBF) kernels. Additionally, explore how regularization strength (𝜆) and the bandwidth (𝛾) effect influence it’s sparsity and overfitting.">
 
 <title>Sparse Kernel Machines – Emmanuel’s Site</title>
 <style>
@@ -72,10 +72,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-6de787833effe4777a6777a5e05fb578.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6de787833effe4777a6777a5e05fb578.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-e692ac2b482288bbef528f963d63456d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
       .quarto-title-block .quarto-title-banner {
         color: white;
-background-image: url(../../img/landscape.png);
+background-image: url(../../img/network.jpeg);
 background-size: cover;
       }
 </style>
@@ -155,9 +157,13 @@ background-size: cover;
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <div id="quarto-announcement" data-announcement-id="0c68bcf4f8159cf344e2cee41f04b2f6" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Alert</strong> - This website is undergoing redevelopment. Some content or features may change during this period.</p>
+</div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
@@ -166,7 +172,7 @@ background-size: cover;
       <h1 class="title">Sparse Kernel Machines</h1>
                   <div>
         <div class="description">
-          Blog Post 7
+          In this post, I implement a sparse kernel logistic regression using radial basis function (RBF) kernels. Additionally, explore how regularization strength (𝜆) and the bandwidth (𝛾) effect influence it’s sparsity and overfitting.
         </div>
       </div>
                 </div>
@@ -209,7 +215,7 @@ background-size: cover;
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
 <!-- [Link to source code](https://github.com/EpicET/EpicET.github.io/blob/main/posts/blog7/kernel_logistic.py) -->
-<p>In this post, we explore sparse kernel logistic regression using radial basis function (RBF) kernels. We demonstrate how sparsity naturally emerges in these models, meaning only a subset of training points — the support vectors — contribute significantly to the final decision function. We examine how key hyperparameters like the regularization strength (𝜆) and the kernel sharpness (𝛾) influence model behavior, including sparsity, decision boundaries, and overfitting. Through several experiments, we visualize decision surfaces, investigate the impact of parameter choices, and show how kernel methods can capture nonlinear patterns effectively. To evaluate generalization, we conclude with an overfitting case study using ROC curves to compare training and test performance.</p>
+<p>In this post, I explore sparse kernel logistic regression using radial basis function (RBF) kernels. I demonstrate how sparsity naturally emerges in these models, meaning only a subset of training points contribute significantly to the final decision function. I examine how key hyperparameters like the regularization strength (𝜆) and the bandwidth (𝛾) influence model behavior, including sparsity, decision boundaries, and overfitting. Through several experiments, I visualize decision surface, investigate the impact of parameter choices, and show how kernel methods can capture nonlinear patterns effectively. To evaluate generalization, I conclude with an overfitting case study using ROC curves to compare training and test performance.</p>
 <div id="6932f313" class="cell" data-execution_count="14">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -515,7 +521,7 @@ background-size: cover;
 </section>
 <section id="overfitting" class="level2">
 <h2 class="anchored" data-anchor-id="overfitting">Overfitting</h2>
-<div id="97eb244d" class="cell" data-execution_count="25">
+<div id="97eb244d" class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
@@ -555,7 +561,7 @@ background-size: cover;
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], <span class="st">"k--"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"False Positive Rate"</span>)</span>
 <span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Positive Rate"</span>)</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"ROC Curves: Overfitting Example"</span>)</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"ROC Curves: Overfitting"</span>)</span>
 <span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
 <span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -568,7 +574,7 @@ background-size: cover;
 </div>
 </div>
 </div>
-<p>In this experiment, we simulate the problem of overfitting by training a kernel logistic regression model with extremely high gamma of 1000. This allows the model to fit the training data very closely, but it generalizes poorly to unseen test data.</p>
+<p>In this experiment, I simulate the problem of overfitting by training a kernel logistic regression model with extremely high gamma of 1000. This allows the model to fit the training data very closely, but it generalizes poorly to unseen test data.</p>
 <p>The (AUC) score for training set was near with perfect with 0.99 but the testing set was near 0.72. This large gap between train and test AUCs is a sign that there is overfitting.</p>
 </section>
 <section id="discussion" class="level2">
@@ -576,7 +582,7 @@ background-size: cover;
 <p>In this post, I explored the behavior of sparse kernel logistic regression with RBF kernels through several experiments:</p>
 <ul>
 <li><p>Sparsity and Regularization: When using a large regularization parameter (𝜆 = 166), only 1 out of 100 training points had a weight (α) greater than 0.001, demonstrating extreme sparsity. In contrast, with a smaller 𝜆 (e.g., 0.1), a larger fraction of points acted as support vectors, contributing to the decision boundary.</p></li>
-<li><p>Effect of Gamma (𝛾): By varying 𝛾 from 1 to 100, we observed that the decision boundary became increasingly complex and less smooth. For example, at 𝛾 = 1, the boundary was broad and circular, while at 𝛾 = 100, it became highly irregular, closely fitting the training data.</p></li>
+<li><p>Effect of Gamma (𝛾): By varying 𝛾 from 1 to 100, I observed that the decision boundary became increasingly complex and less smooth. For example, at 𝛾 = 1, the boundary was broad and circular, while at 𝛾 = 100, it became highly irregular, closely fitting the training data.</p></li>
 <li><p>Nonlinear Data: On a challenging, noisy dataset (400 points, noise = 0.9), the kernelized model with 𝛾 = 10 was still able to capture the nonlinear patterns.</p></li>
 <li><p>Overfitting: Training with a very high 𝛾 (1000) and low 𝜆 (1e-5) on a larger dataset (1000 points, noise = 0.8), the model achieved a near-perfect training AUC of 0.99, but the test AUC dropped to 0.72. This large gap quantitatively demonstrates overfitting: the model fits the training data extremely well but fails to generalize.</p></li>
 </ul>
@@ -611,6 +617,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
