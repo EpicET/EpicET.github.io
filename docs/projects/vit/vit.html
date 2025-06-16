@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Emmanuel Towner">
 
-<title>Home</title>
+<title>Pneumonia Classification with Vision Transformer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +24,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4276cd9111b1ed39846b82331767bba2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-859e3d0356495a088af2667ba90e55c1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4276cd9111b1ed39846b82331767bba2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-859e3d0356495a088af2667ba90e55c1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -86,21 +87,21 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -129,13 +130,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Home</h1>
+<h1 class="title">Pneumonia Classification with Vision Transformer</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Emmanuel Towner </p>
+          </div>
+  </div>
     
   
     
@@ -146,34 +153,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="hi-im-emmanuel-towner" class="level2">
-<h2 class="anchored" data-anchor-id="hi-im-emmanuel-towner">👋 Hi, I’m Emmanuel Towner</h2>
-<p>I’m a full-stack developer and ML enthusiast passionate about building accessible, clean web experiences.</p>
-<p><a href="./projects.html">View My Projects</a> | <a href="./posts.html">Read My Blog</a></p>
-<hr>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data.</p>
 </section>
-<section id="featured-projects" class="level2">
-<h2 class="anchored" data-anchor-id="featured-projects">🖥️ Featured Projects</h2>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
 <ul>
-<li><p><strong><a href="./projects/vit/vit.html">Pneumonia Classification</a></strong><br>
-A deep learning project using Vision Transformers to classify pneumonia in chest X-rays, achieving 95% accuracy.</p></li>
-<li><p><strong><a href="./projects/bank/bank_app.html">Banking Application</a></strong><br>
-A full-stack web application simulating bank functions, built with Java SpringBoot and React.</p></li>
-<li><p><strong><a href="./projects/middhousing/middhousing.html">MiddHousing</a></strong> A web app for Middlebury students to find and review dorm rooms, featuring a campus map and user reviews.</p></li>
+<li>Takes in latent vectors</li>
+<li>Computes probabilities for each class (pneumonia or not pneumonia)</li>
+<li>Trains, tests and evaluates the model</li>
 </ul>
-<hr>
 </section>
-<section id="latest-blog-post" class="level2">
-<h2 class="anchored" data-anchor-id="latest-blog-post">📝 Latest Blog Post</h2>
+<section id="technologies" class="level2">
+<h2 class="anchored" data-anchor-id="technologies">Technologies</h2>
+<p>Python, PyTorch, NumPy, scikit-learn</p>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
 <ul>
-<li><strong><a href="./posts/pneumonia/Final_Project_BP.html">Pneumonia Detection Project</a></strong><br>
-An exploration of deep learning techniques for pneumonia detection in chest X-rays.</li>
+<li>📦 <a href="https://github.com/EpicET/pneumonia-transformer">Transformer Repository</a></li>
+<li>📖 <a href="https://github.com/EpicET/cs0451-pneumonia-detection">Project Notebook</a></li>
 </ul>
-<hr>
-</section>
-<section id="lets-connect" class="level2">
-<h2 class="anchored" data-anchor-id="lets-connect">📬 Let’s Connect</h2>
-<p><a href="https://github.com/yourusername">GitHub</a> | <a href="https://linkedin.com/in/yourusername">LinkedIn</a> | <a href="mailto:youremail@example.com">Email Me</a></p>
 
 
 </section>

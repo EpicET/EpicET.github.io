@@ -3,9 +3,15 @@ project:
   output-dir: docs
 
 website:
-  title: "Home"
   navbar:
     background: "secondary"
+    left: 
+      - text: "Home"
+        href: index.qmd
+      - text: "Blog"
+        href: posts.qmd
+      - projects.qmd
+     
     right:
       - about.qmd
       - icon: github
