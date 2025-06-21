@@ -1,13 +1,29 @@
 ---
-title: "Machine Learning Blog"
-listing:
-  contents: posts
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
-page-layout: full
+title: "Emmanuel Towner"
+format: html
 ---
 
- 
+## 🖥️ Projects
+
+- **[Pneumonia Classification](projects/vit/vit.qmd)**  
+  A deep learning project that used a Vision Transformer to classify pneumonia in chest X-rays.
+
+- **[Banking Application](projects/bank/bank_app.qmd)**  
+  A full-stack web application simulating bank functions, built with Java SpringBoot and React.
+
+- **[MiddHousing](projects/middhousing/middhousing.qmd)**  
+  A web app for Middlebury students to find and review dorm rooms, featuring a campus map and user reviews.
+
+---
+
+## 📝 Latest Blog Post
+
+- **[Pneumonia Detection Project](posts/pneumonia/Final_Project_BP.ipynb)**  
+  An exploration of deep learning techniques for pneumonia detection in chest X-rays.
+
+[More Blog Posts](posts.qmd)
+---
+## 📬 Let's Connect
+
+[LinkedIn](https://www.linkedin.com/in/emmanuel-t-12b558211/) | 
+[Email](mailto:etowner@middlebury.edu)

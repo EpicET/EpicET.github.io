@@ -6,11 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Lia Smith, Cameron Hudson, Robsan Dinka, Emmanuel Towner">
-<meta name="dcterms.date" content="2025-05-19">
-<meta name="description" content="In this project, we built a convolutional neural network (CNN) to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia.">
+<meta name="author" content="Caroline Haggerty, Julian Sandoval, Nate Harris, Siri, Vy Diep, Emmanuel Towner">
 
-<title>Pnuemonia Detection</title>
+<title>MiddHousing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,27 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -160,14 +138,9 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Pnuemonia Detection</h1>
+<h1 class="title">MiddHousing</h1>
 </div>
 
-<div>
-  <div class="description">
-    In this project, we built a convolutional neural network (CNN) to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -175,16 +148,10 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Lia Smith, Cameron Hudson, Robsan Dinka, Emmanuel Towner </p>
+             <p>Caroline Haggerty, Julian Sandoval, Nate Harris, Siri, Vy Diep, Emmanuel Towner </p>
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 19, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -194,70 +161,54 @@ div.csl-indent {
 </header>
 
 
-<section id="abstract" class="level2">
-<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>Within our blog post, we created a neural network and implemented three different binary classifers trained on chest x-ray image data to detect pneumonia based on images. We used convolution layers to convert images into latent vectors by which we could feed into our various machine learning models: a transformer, an SVM, and a gradient boosting model. Through analyzing the accuracy of each model, we discovered a similar accuracy between the models of around 78% on testing data.</p>
-<p><a href="https://github.com/EpicET/cs0451-pneumonia-detection">Here is the link our code.</a></p>
+<section id="app-description" class="level2">
+<h2 class="anchored" data-anchor-id="app-description">App Description</h2>
+<p>MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate previous rooms they have lived in. Students will also have the ability to sort their searches based on specific preferences and see the campus map for specific locations.</p>
 </section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Within our project, we wanted to compare 3 seperate binary classification machine learning models, seeing which is best for an image classification task. Our project attempts to uncover what types of algorithms are best for binary image classification tasks using the pneumonia chest xray dataset, with our models being trained to discern pneumonia based on chest xray images only. This dataset demonstrates a case where finding the most optimal image classifcation algorithm is very important as it could result in saving a life. Our research could also inform which types of algorithms should be considered other important image classification tasks. We found five studies the explored other work done by scholars</p>
-<p>In the study by <span class="citation" data-cites="mobileNet2023">M. R. Rahman, Islam, and Islam (<a href="#ref-mobileNet2023" role="doc-biblioref">2023</a>)</span>, the researchers mainly focus on deep learning algorithms to tackle this same image classification task. Through their research, they discovered the MobileNet CCN gave the best accuracy on two datasets with values of 94.23% and 93.75%.</p>
-<p>In another study titled <span class="citation" data-cites="chexnet2017">Rajpurkar et al. (<a href="#ref-chexnet2017" role="doc-biblioref">2017</a>)</span>, researchers create their own CNN known as CheXNet that detects pneumonia as well as other chest related illnesses (fibrosis, hernia, etc.) that which accuracies ranging from 0.7 to 0.9. With such a large focus on CNNs for this image classification, ww wanted to determine if other kinds of algorithms good for binary classifcation could also be useful image classifiers.</p>
-<p>Recent research has expanded the exploration of deep learning architectures for pneumonia detection. For instance, a study by <span class="citation" data-cites="singh2021pneumonia">Singh, Thomas, and Jaiswal (<a href="#ref-singh2021pneumonia" role="doc-biblioref">2021</a>)</span> compared a custom convolutional neural network (CNN) and a multilayer perceptron (MLP) for classifying chest X-ray images. The CNN achieved an accuracy of 92.63%, outperforming the MLP’s 77.56%, highlighting the efficacy of CNNs in medical image classification tasks (<span class="citation" data-cites="singh2021pneumonia">Singh, Thomas, and Jaiswal (<a href="#ref-singh2021pneumonia" role="doc-biblioref">2021</a>)</span>).</p>
-<p>Another study by <span class="citation" data-cites="rahman2020transfer">T. Rahman et al. (<a href="#ref-rahman2020transfer" role="doc-biblioref">2020</a>)</span> employed transfer learning with various pre-trained CNN models, including AlexNet, ResNet18, DenseNet201, and SqueezeNet, to classify chest X-ray images into normal, bacterial pneumonia, and viral pneumonia categories. Their approach achieved classification accuracies of 98% for normal vs.&nbsp;pneumonia, 95% for bacterial vs.&nbsp;viral pneumonia, and 93.3% for normal, bacterial, and viral pneumonia, demonstrating the potential of transfer learning in enhancing diagnostic performance.</p>
-<p>Furthermore, a study by <span class="citation" data-cites="mabrouk2023ensemble">Mabrouk et al. (<a href="#ref-mabrouk2023ensemble" role="doc-biblioref">2023</a>)</span> proposed an ensemble learning approach combining DenseNet169, MobileNetV2, and Vision Transformer models for pneumonia detection in chest X-ray images. Their ensemble model achieved an accuracy of 93.91% and an F1-score of 93.88%, indicating that integrating multiple deep learning architectures can improve classification performance.</p>
+<section id="my-role" class="level2">
+<h2 class="anchored" data-anchor-id="my-role">My Role</h2>
+<p>I implemented the both main and dorm search bars which allowed the user to view all dorms and filter by preferences. I also created the review functionality which allowed users to use stars to rate the room out of five and write their room experience in a text box. Furthemore, utilized the api to access backend information about the room such as size and room type. I also assisted the develpment and testing of the knex.js models.</p>
 </section>
-<section id="values-statement" class="level2">
-<h2 class="anchored" data-anchor-id="values-statement">Values Statement</h2>
-<p>The potential users of our project would be primary care clinicians and radiologists who must regularly discern chest-related illnesses through X-rays. These machine learning models trained on chest X-ray image data may help them make more informed decisions if they are trying to discern specifically pneumonia.</p>
-<p>I believe that our work contributes to AI researchers who are studying how to optimize for performance in image classification tasks, especially regarding medical concerns. If it can inform medical researchers on what machine learning models are best at medical image classification, they and their patients can also benefit from greater accuracy in detecting chest-related illnesses.</p>
-<p>Because our models are quite poor at predicting images without pneumonia correctly, they could falsely flag patients as having pneumonia, which may lead them to incur unnecessary medical expenses. Based on the background of these patients, this could seriously affect patients who struggle financially.</p>
-<p>Our group personally enjoyed and had an interest in each of the algorithms that we worked on and took this project as a learning experience to expand our knowledge on what image vectorization and binary classification algorithms are out there and how they differ from what we have learned through our class assignments.</p>
-<p>Based on our experiments, we believe if our project can help inform image classification tasks, especially those in the medical field, then the world can become a better place by being able to help people detect illnesses earlier and possibly save lives.</p>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
+<ul>
+<li>Interactive Leaflet map with campus map</li>
+<li>Dorm and Room search functionality
+<ul>
+<li>Floor plans</li>
+<li>Room pages</li>
+</ul></li>
+<li>Reviews:
+<ul>
+<li>Rate room with stars</li>
+<li>Textbox</li>
+</ul></li>
+<li>Profile:
+<ul>
+<li>User name, email and password</li>
+<li>Saved preferences and rooms</li>
+</ul></li>
+<li>PostgresSQL database for storing user information</li>
+<li>Knex.js for query calls to database</li>
+<li>Google Authentication system</li>
+</ul>
 </section>
-<section id="materials" class="level2">
-<h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<p>Our data comes from the Pneumonia Chest X-ray dataset on Kaggle. This data came from the Guangzhou Women and Children’s Medical Center. Samples were collected from patients and labels were created by pneumonia specialists, with two specialists making labels and then a third corroborating the label of normal or pneumonia. Our data lacks information regarding the severity or time span of the pneumonia for positive cases, meaning that the model has no clear way of understanding which X-rays should be encoded closer or further away from the normal cases. Additionally, the dataset has a 64% / 36% split, with the majority of X-rays containing positive cases of pneumonia. This bias happens to work out well for mitigating false negatives; however, it makes models have more difficulty understanding when an X-ray is normal.</p>
+<section id="technologies" class="level2">
+<h2 class="anchored" data-anchor-id="technologies">Technologies</h2>
+<section id="frontend" class="level3">
+<h3 class="anchored" data-anchor-id="frontend">Frontend</h3>
+<p>React, Bootstrap, Leaflet</p>
 </section>
-<section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">Results</h2>
-<p><img width="262" alt="image" src="https://github.com/user-attachments/assets/2bd2c6ef-4d1a-4994-ad37-e454924eee0d"> <img width="463" alt="image" src="https://github.com/user-attachments/assets/897d1e6c-110d-4291-bec7-f3ea6cc16fc5"></p>
-<p>As demonstrated before, the models contained much higher precision rates than recall in order to catch more of the positive pneumonia cases due to their costliness as compared to the costs associated with missing a normal case. Within the models, the transformer did the best, with the highest recall and precision of 93% and 41% respectively. The F-1 score of 57% suggests that the model was beginning to learn differences between the classes but still encountered much difficulty. This is also present in the 3-D PCA plot of the latent vectors where it becomes evident that many of the embeddings are caught in an overlapping region where both classes meet. The results suggest that the image embeddings need more fine-tuning to increase accuracy and recall.</p>
+<section id="backend" class="level3">
+<h3 class="anchored" data-anchor-id="backend">Backend</h3>
+<p>Knex.js, Next.js, Docker</p>
 </section>
-<section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>The project accomplished many of the goals that we set out to accomplish during the duration of this project and also failed to meet others. We got a working convolutional neural network to embed the images and learn important features of those images. We correctly identify 93% of all pneumonia cases. On the other hand, we correctly identify less than half of all normal cases. This project demonstrates the difficulty of complex machine learning tasks without good computational resources. Running and auditing the CNN alone takes two hours per run with a GPU. Due to this constraint, we were unable to readily take advantage of all of the data available. Additionally, the binary classification models also took 5–15 minutes depending on the model. The most apparent hurdle in this project was creating a complex model while also being able to run it in a reasonable amount of time. Other pneumonia binary classification projects are able to get higher accuracy through the usage of pre-made ResNet models. These models are trained on millions of images and use residual connections to improve the performance of neural networks. If we had more time, we would do a more thorough error analysis of misclassified normal images to understand what features the model is missing and improve the architecture to capture that feature. Additionally, we would utilize more of the training data without run-time constraints and try adopting residual neural network architecture to improve performance.</p>
-<!-- ## Group Contributions:
-
-Lia did the data preprocessing for the images and all visualizations such as the PCA plot. Furthermore, she made the the contrastive autoencoder, latent vectors, and worked on evaluation metrics for the models. For the blog posts she did the material and methods, results, and conclusions. Cameron worked on XGBoost Model in the project and wrote the introduction, abstract, and values statement of the blog post. Robsan worked on the Support Vector Machine. Emmanuel created the transformer and worked on model evaluation. Broadly adapted code imported from Google colab to be functional on the notebook. For the blog post, he added to the introduction and make did the reference implementation. -->
-<!-- ## Personal Reflection:
-
-Throughout this process, I found myself engaging in quite a bit of research on models similar to mine. I also had to learn how to gather information from various sources to create a transformer tailored to my specific needs. My perspective on executing machine learning projects has shifted as well; I had never considered employing pipelining models or leveraging multiple models to generate predictions on a dataset.
-
-Overall, I take pride in this project. I believe the topic struck an excellent balance between being intriguing, challenging, and relevant. The fact that we were able to successfully implement it and achieve solid accuracy is incredibly rewarding.
-
-Additionally, I've enhanced my skills with GitHub and gained a better understanding of setting rules and branch protections, which will undoubtedly be valuable in the future. Moving forward, I plan to focus more on organizing pair programming sessions and fostering improved code review practices. -->
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-mabrouk2023ensemble" class="csl-entry" role="listitem">
-Mabrouk, Souhaib, Mohamed Ali Mahjoub, Fatma Hamdi, Slim Messaoud, and Mohamed Jmaiel. 2023. <span>“Ensemble Learning Model for Pneumonia Detection in Chest x-Ray Images Using DenseNet, MobileNet and Vision Transformers.”</span> <em>arXiv Preprint arXiv:2312.07965</em>. <a href="https://arxiv.org/abs/2312.07965">https://arxiv.org/abs/2312.07965</a>.
-</div>
-<div id="ref-mobileNet2023" class="csl-entry" role="listitem">
-Rahman, Md Raihanur, Md Rabiul Islam, and Md Hafizul Islam. 2023. <span>“Pneumonia Detection Using MobileNet CNN Model.”</span> <em>Journal of Healthcare Engineering</em> 2023: 1–12. <a href="https://doi.org/10.1155/2023/6672181">https://doi.org/10.1155/2023/6672181</a>.
-</div>
-<div id="ref-rahman2020transfer" class="csl-entry" role="listitem">
-Rahman, Tawsifur, Ahsan Khandakar, Yazan Qiblawey, Asmaa Tahir, Serkan Kiranyaz, S. B. M. Kashem, Md. Rashidul Islam, Md. Taufiq Islam, and M. E. H. Chowdhury. 2020. <span>“Transfer Learning with Deep Convolutional Neural Network (CNN) for Pneumonia Detection Using Chest x-Ray.”</span> <em>arXiv Preprint arXiv:2004.06578</em>. <a href="https://arxiv.org/abs/2004.06578">https://arxiv.org/abs/2004.06578</a>.
-</div>
-<div id="ref-chexnet2017" class="csl-entry" role="listitem">
-Rajpurkar, Pranav, Jeremy Irvin, Kaylie Zhu, Brandon Yang, Hershel Mehta, Tony Duan, Daisy Ding, et al. 2017. <span>“CheXNet: Radiologist-Level Pneumonia Detection on Chest x-Rays with Deep Learning.”</span> <em>arXiv Preprint arXiv:1711.05225</em>. <a href="https://arxiv.org/pdf/1711.05225">https://arxiv.org/pdf/1711.05225</a>.
-</div>
-<div id="ref-singh2021pneumonia" class="csl-entry" role="listitem">
-Singh, Bhupendra, Supriya Thomas, and Amandeep Jaiswal. 2021. <span>“Pneumonia Detection Using Deep Learning.”</span> <em>International Journal of Engineering Research &amp; Technology (IJERT)</em> 10 (7): 84–88. <a href="https://www.researchgate.net/publication/353590019_Pneumonia_Detection_using_Deep_Learning">https://www.researchgate.net/publication/353590019_Pneumonia_Detection_using_Deep_Learning</a>.
-</div>
-</div>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li>📦 <a href="https://github.com/csci312a-f23/project-ellen">GitHub Repository</a></li>
+</ul>
 
 
 </section>

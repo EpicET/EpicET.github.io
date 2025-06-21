@@ -1,0 +1,38 @@
+---
+title: "MiddHousing"
+author: Caroline Haggerty, Julian Sandoval, Nate Harris, Siri, Vy Diep, Emmanuel Towner
+format: html
+---
+
+## App Description
+MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate previous rooms they have lived in. Students will also have the ability to sort their searches based on specific preferences and see the campus map for specific locations.
+
+## My Role
+I implemented the both main and dorm search bars which allowed the user to view all dorms and filter by preferences. I also created the review functionality which allowed users to use stars to rate the room out of five and write their room experience in a text box. Furthemore, utilized the api to access backend information about the room such as size and room type. I also assisted the develpment and testing of the knex.js models. 
+
+## Features
+- Interactive Leaflet map with campus map
+- Dorm and Room search functionality
+    - Floor plans
+    - Room pages
+- Reviews:
+    - Rate room with stars
+    - Textbox
+- Profile:
+    - User name, email and password
+    - Saved preferences and rooms
+- PostgresSQL database for storing user information
+- Knex.js for query calls to database
+- Google Authentication system
+
+## Technologies
+
+### Frontend
+React, Bootstrap, Leaflet
+
+### Backend
+Knex.js, Next.js, Docker
+
+## Links
+- 📦  [GitHub Repository](https://github.com/csci312a-f23/project-ellen)
+

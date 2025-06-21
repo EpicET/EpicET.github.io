@@ -3,13 +3,23 @@ project:
   output-dir: docs
 
 website:
-  title: "Home"
   navbar:
     background: "secondary"
-    right:
+    left: 
+      - text: "Home"
+        href: index.qmd
+      - text: "Blog"
+        href: posts.qmd
       - about.qmd
+     
+    right:
       - icon: github
-        href: https://github.com/EpicET
+        menu: 
+          - text: Source Code
+            href: https://github.com/EpicET/EpicET.github.io
+          - text: Report a Bug
+            href: https://github.com/EpicET/EpicET.github.io/issues
+        
   announcement: 
     icon: info-circle
     dismissable: true

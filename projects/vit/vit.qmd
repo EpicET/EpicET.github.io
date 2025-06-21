@@ -1,0 +1,20 @@
+---
+title: "Pneumonia Classification with Vision Transformer"
+author: Emmanuel Towner
+format: html
+---
+
+## Overview
+This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data.
+
+## Features
+- Takes in latent vectors
+- Computes probabilities for each class (pneumonia or not pneumonia)
+- Trains, tests and evaluates the model
+
+## Technologies
+Python, PyTorch, NumPy, scikit-learn
+
+## Links
+- 📦  [Transformer Repository](https://github.com/EpicET/pneumonia-transformer)
+- 📖  [Project Notebook](https://github.com/EpicET/cs0451-pneumonia-detection)

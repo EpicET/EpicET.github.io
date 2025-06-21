@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Machine Learning Blog – Home</title>
+<title>Emmanuel Towner</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,95 +68,54 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Home</span>
-    </a>
-  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/EpicET"> <i class="bi bi-github" role="img">
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
 </i> 
-<span class="menu-text"></span></a>
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/EpicET/EpicET.github.io">
+ <span class="dropdown-text">Source Code</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/EpicET/EpicET.github.io/issues">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -171,23 +128,21 @@ window.Quarto = {
 </div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div></div></div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Machine Learning Blog</h1>
+<h1 class="title">Emmanuel Towner</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
     
   
@@ -199,213 +154,35 @@ window.Quarto = {
 </header>
 
 
+<section id="projects" class="level2">
+<h2 class="anchored" data-anchor-id="projects">🖥️ Projects</h2>
+<ul>
+<li><p><strong><a href="./projects/vit/vit.html">Pneumonia Classification</a></strong><br>
+A deep learning project that used a Vision Transformer to classify pneumonia in chest X-rays.</p></li>
+<li><p><strong><a href="./projects/bank/bank_app.html">Banking Application</a></strong><br>
+A full-stack web application simulating bank functions, built with Java SpringBoot and React.</p></li>
+<li><p><strong><a href="./projects/middhousing/middhousing.html">MiddHousing</a></strong><br>
+A web app for Middlebury students to find and review dorm rooms, featuring a campus map and user reviews.</p></li>
+</ul>
+<hr>
+</section>
+<section id="latest-blog-post" class="level2">
+<h2 class="anchored" data-anchor-id="latest-blog-post">📝 Latest Blog Post</h2>
+<ul>
+<li><strong><a href="./posts/pneumonia/Final_Project_BP.html">Pneumonia Detection Project</a></strong><br>
+An exploration of deep learning techniques for pneumonia detection in chest X-rays.</li>
+</ul>
+<p><a href="./posts.html">More Blog Posts</a></p>
+<hr>
+</section>
+<section id="lets-connect" class="level2">
+<h2 class="anchored" data-anchor-id="lets-connect">📬 Let’s Connect</h2>
+<p><a href="https://www.linkedin.com/in/emmanuel-t-12b558211/">LinkedIn</a> | <a href="mailto:etowner@middlebury.edu">Email</a></p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1747627200000" data-listing-file-modified-sort="1748625936324" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1477">
-<div class="thumbnail">
-<p><a href="./posts/pneumonia/Final_Project_BP.html" class="no-external"></a></p><a href="./posts/pneumonia/Final_Project_BP.html" class="no-external">
-<p><img loading="lazy" src="./posts/pneumonia/image.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/pneumonia/Final_Project_BP.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/pneumonia/Final_Project_BP.html" class="no-external">Pnuemonia Detection</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/pneumonia/Final_Project_BP.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/pneumonia/Final_Project_BP.html" class="no-external">In this project, we built a convolutional neural network (CNN) to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/pneumonia/Final_Project_BP.html" class="no-external">
-<div class="listing-date">
-May 19, 2025
-</div>
-<div class="listing-author">
-Lia Smith, Cameron Hudson, Robsan Dinka, Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1746590400000" data-listing-file-modified-sort="1748621519760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="699">
-<div class="thumbnail">
-<p><a href="./posts/optimization/index.html" class="no-external"></a></p><a href="./posts/optimization/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/optimization/index_files/figure-html/cell-7-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/optimization/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/optimization/index.html" class="no-external">Advanced Optimization</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/optimization/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/optimization/index.html" class="no-external">In this blog post, I explore three advanced optimization techniques—Newton’s Method, the Adam optimizer, and Gradient Descent Optimizer—in the context of logistic regression applied to heart disease prediction. The goal is to understand how different optimization algorithms influence model performance and training dynamics in a binary classification tasks.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/optimization/index.html" class="no-external">
-<div class="listing-date">
-May 7, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1745899200000" data-listing-file-modified-sort="1748621519758" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="658">
-<div class="thumbnail">
-<p><a href="./posts/kernel/index.html" class="no-external"></a></p><a href="./posts/kernel/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/kernel/index_files/figure-html/cell-3-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/kernel/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/kernel/index.html" class="no-external">Sparse Kernel Machines</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/kernel/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/kernel/index.html" class="no-external">In this post, I implement a sparse kernel logistic regression using radial basis function (RBF) kernels. Additionally, explore how regularization strength (𝜆) and the bandwidth (𝛾) effect influence it’s sparsity and overfitting.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/kernel/index.html" class="no-external">
-<div class="listing-date">
-Apr 29, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1745380800000" data-listing-file-modified-sort="1748621519755" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="415">
-<div class="thumbnail">
-<p><a href="./posts/descent/index.html" class="no-external"></a></p><a href="./posts/descent/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/descent/index_files/figure-html/cell-4-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/descent/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/descent/index.html" class="no-external">Overfitting and Double Descents</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/descent/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/descent/index.html" class="no-external">In this blog post, I explore the deep learning phenomenon of overfitting and the resulting double descent using a linear regression model and an overparameterized optimizer. I evaluated the model by its mean squared error (MSE) based on number of features.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/descent/index.html" class="no-external">
-<div class="listing-date">
-Apr 23, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1744171200000" data-listing-file-modified-sort="1748625936322" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="865">
-<div class="thumbnail">
-<p><a href="./posts/logistic/index.html" class="no-external"></a></p><a href="./posts/logistic/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/logistic/index_files/figure-html/cell-4-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/logistic/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/logistic/index.html" class="no-external">Implementing Logistic Regression</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/logistic/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/logistic/index.html" class="no-external">This blog post implements logistic regression with momentum from scratch in Python and performs three experiments evaluating the loss and accuracy.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/logistic/index.html" class="no-external">
-<div class="listing-date">
-Apr 9, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1741752000000" data-listing-file-modified-sort="1748625936321" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1160">
-<div class="thumbnail">
-<p><a href="./posts/audit/index.html" class="no-external"></a></p><a href="./posts/audit/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/audit/index_files/figure-html/cell-14-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/audit/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/audit/index.html" class="no-external">Auditing Bias</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/audit/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/audit/index.html" class="no-external">In this blog post, my goal was to make a prediction of employment status based on various demographics excluding race using a subset of data from the American Community Service focused on Massachusetts residents in 2023. After training a model on this data, I evaluated its performance and examined potential biases in its predictions.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/audit/index.html" class="no-external">
-<div class="listing-date">
-Mar 12, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1739336400000" data-listing-file-modified-sort="1748625936323" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="914">
-<div class="thumbnail">
-<p><a href="./posts/palmer/index.html" class="no-external"></a></p><a href="./posts/palmer/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/palmer/penguins.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/palmer/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/palmer/index.html" class="no-external">Classifying Palmer Penguins</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/palmer/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/palmer/index.html" class="no-external">In this blog post, I analyze the Palmer Penguins dataset to identify the best features for determining penguin species based on their measurements.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/palmer/index.html" class="no-external">
-<div class="listing-date">
-Feb 12, 2025
-</div>
-<div class="listing-author">
-Emmanuel Towner
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

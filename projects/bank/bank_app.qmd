@@ -1,0 +1,36 @@
+---
+title: "Bank App"
+author: Emmanuel Towner
+format: html
+---
+
+## Overview
+My first project; a full-stack web application that simulates the functions of a bank website. The backend was built Java SpringBoot and MongoDB as the database. Frontend was React with Axios is the api between it and the localhost server.
+
+## Features
+- Profile:
+    - User name
+    - User password
+    - Bank accounts (Checking/Saving)
+- Banking features:
+    - Deposit
+    - Withdraw
+    - Transfer
+- Pie chart representing money with each account
+- Transaction history table and graph for each account
+- Database storing user information
+
+## Technologies
+
+### Frontend
+React, Bootstrap, Axios
+
+### Backend
+Java, SpringBoot, MongoDB
+
+## Links
+- 📦  [GitHub Repository](https://github.com/EpicET/bank_app)
+
+<!-- ## Screenshots
+![Bank login page](/bank_front_page.png)
+![Bank main page](/bank_main_page.png) -->
