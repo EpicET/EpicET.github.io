@@ -20,12 +20,6 @@ website:
           - text: Report a Bug
             href: https://github.com/EpicET/EpicET.github.io/issues
         
-  announcement: 
-    icon: info-circle
-    dismissable: true
-    content: "**Alert** - This website is undergoing redevelopment. Some content or features may change during this period."
-    type: primary
-    position: below-navbar
       
 
 format:
