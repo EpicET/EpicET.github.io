@@ -10,12 +10,16 @@ website:
         href: index.qmd
       - text: "Blog"
         href: posts.qmd
-      - projects.qmd
+      - about.qmd
      
     right:
-      - about.qmd
       - icon: github
-        href: https://github.com/EpicET
+        menu: 
+          - text: Source Code
+            href: https://github.com/EpicET/EpicET.github.io
+          - text: Report a Bug
+            href: https://github.com/EpicET/EpicET.github.io/issues
+        
   announcement: 
     icon: info-circle
     dismissable: true

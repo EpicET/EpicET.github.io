@@ -1,10 +1,73 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Machine Learning Blog",
     "section": "",
-    "text": "Hello! I’m Emmanuel Towner, a computer science major at Middlebury College."
+    "text": "Pnuemonia Detection\n\n\n\n\n\nIn this project, we built a convolutional neural network (CNN) to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia.\n\n\n\n\n\nMay 19, 2025\n\n\nLia Smith, Cameron Hudson, Robsan Dinka, Emmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nAdvanced Optimization\n\n\n\n\n\nIn this blog post, I explore three advanced optimization techniques—Newton’s Method, the Adam optimizer, and Gradient Descent Optimizer—in the context of logistic regression applied to heart disease prediction. The goal is to understand how different optimization algorithms influence model performance and training dynamics in a binary classification tasks.\n\n\n\n\n\nMay 7, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nSparse Kernel Machines\n\n\n\n\n\nIn this post, I implement a sparse kernel logistic regression using radial basis function (RBF) kernels. Additionally, explore how regularization strength (𝜆) and the bandwidth (𝛾) effect influence it’s sparsity and overfitting.\n\n\n\n\n\nApr 29, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nOverfitting and Double Descents\n\n\n\n\n\nIn this blog post, I explore the deep learning phenomenon of overfitting and the resulting double descent using a linear regression model and an overparameterized optimizer. I evaluated the model by its mean squared error (MSE) based on number of features.\n\n\n\n\n\nApr 23, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nImplementing Logistic Regression\n\n\n\n\n\nThis blog post implements logistic regression with momentum from scratch in Python and performs three experiments evaluating the loss and accuracy.\n\n\n\n\n\nApr 9, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nAuditing Bias\n\n\n\n\n\nIn this blog post, my goal was to make a prediction of employment status based on various demographics excluding race using a subset of data from the American Community Service focused on Massachusetts residents in 2023. After training a model on this data, I evaluated its performance and examined potential biases in its predictions.\n\n\n\n\n\nMar 12, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying Palmer Penguins\n\n\n\n\n\nIn this blog post, I analyze the Palmer Penguins dataset to identify the best features for determining penguin species based on their measurements.\n\n\n\n\n\nFeb 12, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Emmanuel Towner",
+    "section": "",
+    "text": "Pneumonia Classification\nA deep learning project that used a Vision Transformer to classify pneumonia in chest X-rays.\nBanking Application\nA full-stack web application simulating bank functions, built with Java SpringBoot and React.\nMiddHousing\nA web app for Middlebury students to find and review dorm rooms, featuring a campus map and user reviews."
+  },
+  {
+    "objectID": "index.html#projects",
+    "href": "index.html#projects",
+    "title": "Emmanuel Towner",
+    "section": "",
+    "text": "Pneumonia Classification\nA deep learning project that used a Vision Transformer to classify pneumonia in chest X-rays.\nBanking Application\nA full-stack web application simulating bank functions, built with Java SpringBoot and React.\nMiddHousing\nA web app for Middlebury students to find and review dorm rooms, featuring a campus map and user reviews."
+  },
+  {
+    "objectID": "index.html#latest-blog-post",
+    "href": "index.html#latest-blog-post",
+    "title": "Emmanuel Towner",
+    "section": "📝 Latest Blog Post",
+    "text": "📝 Latest Blog Post\n\nPneumonia Detection Project\nAn exploration of deep learning techniques for pneumonia detection in chest X-rays.\n\nMore Blog Posts"
+  },
+  {
+    "objectID": "index.html#lets-connect",
+    "href": "index.html#lets-connect",
+    "title": "Emmanuel Towner",
+    "section": "📬 Let’s Connect",
+    "text": "📬 Let’s Connect\nLinkedIn | Email"
+  },
+  {
+    "objectID": "projects/vit/vit.html",
+    "href": "projects/vit/vit.html",
+    "title": "Pneumonia Classification with Vision Transformer",
+    "section": "",
+    "text": "This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data."
+  },
+  {
+    "objectID": "projects/vit/vit.html#overview",
+    "href": "projects/vit/vit.html#overview",
+    "title": "Pneumonia Classification with Vision Transformer",
+    "section": "",
+    "text": "This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data."
+  },
+  {
+    "objectID": "projects/vit/vit.html#features",
+    "href": "projects/vit/vit.html#features",
+    "title": "Pneumonia Classification with Vision Transformer",
+    "section": "Features",
+    "text": "Features\n\nTakes in latent vectors\nComputes probabilities for each class (pneumonia or not pneumonia)\nTrains, tests and evaluates the model"
+  },
+  {
+    "objectID": "projects/vit/vit.html#technologies",
+    "href": "projects/vit/vit.html#technologies",
+    "title": "Pneumonia Classification with Vision Transformer",
+    "section": "Technologies",
+    "text": "Technologies\nPython, PyTorch, NumPy, scikit-learn"
+  },
+  {
+    "objectID": "projects/vit/vit.html#links",
+    "href": "projects/vit/vit.html#links",
+    "title": "Pneumonia Classification with Vision Transformer",
+    "section": "Links",
+    "text": "Links\n\n📦 Transformer Repository\n📖 Project Notebook"
   },
   {
     "objectID": "posts/kernel/index.html",
@@ -315,60 +378,39 @@
     "text": "My most important finding was that my model does achieve double descent. For training loss, the MSE continued to trend downward as the number of features increased. For testing loss, there was an initial decrease in loss, but then the loss rose when it reached near the interpolation threshold due to overfitting. After the interpolation threshold, the loss decreased again, reaching a second minimum.\nBased on my results, 192 features achieved the lowest MSE of 301."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Home",
-    "section": "",
-    "text": "I’m a full-stack developer and ML enthusiast passionate about building accessible, clean web experiences.\nView My Projects | Read My Blog"
-  },
-  {
-    "objectID": "projects/bank_app.html",
-    "href": "projects/bank_app.html",
+    "objectID": "projects/bank/bank_app.html",
+    "href": "projects/bank/bank_app.html",
     "title": "Bank App",
     "section": "",
     "text": "My first project; a full-stack web application that simulates the functions of a bank website. The backend was built Java SpringBoot and MongoDB as the database. Frontend was React with Axios is the api between it and the localhost server."
   },
   {
-    "objectID": "projects/bank_app.html#overview",
-    "href": "projects/bank_app.html#overview",
+    "objectID": "projects/bank/bank_app.html#overview",
+    "href": "projects/bank/bank_app.html#overview",
     "title": "Bank App",
     "section": "",
     "text": "My first project; a full-stack web application that simulates the functions of a bank website. The backend was built Java SpringBoot and MongoDB as the database. Frontend was React with Axios is the api between it and the localhost server."
   },
   {
-    "objectID": "projects/bank_app.html#features",
-    "href": "projects/bank_app.html#features",
+    "objectID": "projects/bank/bank_app.html#features",
+    "href": "projects/bank/bank_app.html#features",
     "title": "Bank App",
     "section": "Features",
-    "text": "Features\n\nProfile:\n\nUser name\nUser password\nBank accounts (Checking/Saving)\n\nBanking features:\n\nDeposit\nWithdraw\nTransfer\n\nPie chart representing money with each account\nTransaction history table and graph for each account"
+    "text": "Features\n\nProfile:\n\nUser name\nUser password\nBank accounts (Checking/Saving)\n\nBanking features:\n\nDeposit\nWithdraw\nTransfer\n\nPie chart representing money with each account\nTransaction history table and graph for each account\nDatabase storing user information"
   },
   {
-    "objectID": "projects/bank_app.html#technologies",
-    "href": "projects/bank_app.html#technologies",
+    "objectID": "projects/bank/bank_app.html#technologies",
+    "href": "projects/bank/bank_app.html#technologies",
     "title": "Bank App",
     "section": "Technologies",
     "text": "Technologies\n\nFrontend\nReact, Bootstrap, Axios\n\n\nBackend\nJava, SpringBoot, MongoDB"
   },
   {
-    "objectID": "projects/bank_app.html#links",
-    "href": "projects/bank_app.html#links",
+    "objectID": "projects/bank/bank_app.html#links",
+    "href": "projects/bank/bank_app.html#links",
     "title": "Bank App",
     "section": "Links",
     "text": "Links\n\n📦 GitHub Repository"
-  },
-  {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
-    "section": "",
-    "text": "Banking Application\nMiddHousing"
-  },
-  {
-    "objectID": "projects.html#featured-projects",
-    "href": "projects.html#featured-projects",
-    "title": "Projects",
-    "section": "",
-    "text": "Banking Application\nMiddHousing"
   },
   {
     "objectID": "projects/middhousing/middhousing.html",
@@ -413,136 +455,24 @@
     "text": "Links\n\n📦 GitHub Repository"
   },
   {
-    "objectID": "projects/bank/bank_app.html",
-    "href": "projects/bank/bank_app.html",
-    "title": "Bank App",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "My first project; a full-stack web application that simulates the functions of a bank website. The backend was built Java SpringBoot and MongoDB as the database. Frontend was React with Axios is the api between it and the localhost server."
+    "text": "Hello! I’m Emmanuel Towner, a computer science major at Middlebury College."
   },
   {
-    "objectID": "projects/bank/bank_app.html#overview",
-    "href": "projects/bank/bank_app.html#overview",
-    "title": "Bank App",
-    "section": "",
-    "text": "My first project; a full-stack web application that simulates the functions of a bank website. The backend was built Java SpringBoot and MongoDB as the database. Frontend was React with Axios is the api between it and the localhost server."
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nMiddlebury College | Middlebury, VT\nBA in Computer Science | Sept 2021 – Jan 2026"
   },
   {
-    "objectID": "projects/bank/bank_app.html#features",
-    "href": "projects/bank/bank_app.html#features",
-    "title": "Bank App",
-    "section": "Features",
-    "text": "Features\n\nProfile:\n\nUser name\nUser password\nBank accounts (Checking/Saving)\n\nBanking features:\n\nDeposit\nWithdraw\nTransfer\n\nPie chart representing money with each account\nTransaction history table and graph for each account\nDatabase storing user information"
-  },
-  {
-    "objectID": "projects/bank/bank_app.html#technologies",
-    "href": "projects/bank/bank_app.html#technologies",
-    "title": "Bank App",
-    "section": "Technologies",
-    "text": "Technologies\n\nFrontend\nReact, Bootstrap, Axios\n\n\nBackend\nJava, SpringBoot, MongoDB"
-  },
-  {
-    "objectID": "projects/bank/bank_app.html#links",
-    "href": "projects/bank/bank_app.html#links",
-    "title": "Bank App",
-    "section": "Links",
-    "text": "Links\n\n📦 GitHub Repository"
-  },
-  {
-    "objectID": "projects/bank/bank_app.html#screenshots",
-    "href": "projects/bank/bank_app.html#screenshots",
-    "title": "Bank App",
-    "section": "Screenshots",
-    "text": "Screenshots"
-  },
-  {
-    "objectID": "index.html#hi-im-jordan-reed",
-    "href": "index.html#hi-im-jordan-reed",
-    "title": "Home",
-    "section": "",
-    "text": "I’m a front-end developer and UI/UX enthusiast passionate about building accessible, clean web experiences.\nView My Projects | Read My Blog"
-  },
-  {
-    "objectID": "index.html#featured-projects",
-    "href": "index.html#featured-projects",
-    "title": "Home",
-    "section": "🖥️ Featured Projects",
-    "text": "🖥️ Featured Projects\n\nPneumonia Classification\nA deep learning project using Vision Transformers to classify pneumonia in chest X-rays, achieving 95% accuracy.\nBanking Application\nA full-stack web application simulating bank functions, built with Java SpringBoot and React.\nMiddHousing A web app for Middlebury students to find and review dorm rooms, featuring a campus map and user reviews."
-  },
-  {
-    "objectID": "index.html#about-me",
-    "href": "index.html#about-me",
-    "title": "Home",
-    "section": "About Me",
-    "text": "About Me\nI’m a developer with a love for clean code, intuitive design, and building tools that make life easier. I enjoy working with modern front-end frameworks and collaborating on open-source projects.\nLearn More"
-  },
-  {
-    "objectID": "index.html#lets-connect",
-    "href": "index.html#lets-connect",
-    "title": "Home",
-    "section": "📬 Let’s Connect",
-    "text": "📬 Let’s Connect\nGitHub | LinkedIn | Email Me"
-  },
-  {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Machine Learning Blog",
-    "section": "",
-    "text": "Pnuemonia Detection\n\n\n\n\n\nIn this project, we built a convolutional neural network (CNN) to embed chest X-ray images into a latent space, then compared three binary classifiers—Support Vector Machine, XGBoost, and Transformer—on their ability to detect pneumonia.\n\n\n\n\n\nMay 19, 2025\n\n\nLia Smith, Cameron Hudson, Robsan Dinka, Emmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nAdvanced Optimization\n\n\n\n\n\nIn this blog post, I explore three advanced optimization techniques—Newton’s Method, the Adam optimizer, and Gradient Descent Optimizer—in the context of logistic regression applied to heart disease prediction. The goal is to understand how different optimization algorithms influence model performance and training dynamics in a binary classification tasks.\n\n\n\n\n\nMay 7, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nSparse Kernel Machines\n\n\n\n\n\nIn this post, I implement a sparse kernel logistic regression using radial basis function (RBF) kernels. Additionally, explore how regularization strength (𝜆) and the bandwidth (𝛾) effect influence it’s sparsity and overfitting.\n\n\n\n\n\nApr 29, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nOverfitting and Double Descents\n\n\n\n\n\nIn this blog post, I explore the deep learning phenomenon of overfitting and the resulting double descent using a linear regression model and an overparameterized optimizer. I evaluated the model by its mean squared error (MSE) based on number of features.\n\n\n\n\n\nApr 23, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nImplementing Logistic Regression\n\n\n\n\n\nThis blog post implements logistic regression with momentum from scratch in Python and performs three experiments evaluating the loss and accuracy.\n\n\n\n\n\nApr 9, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nAuditing Bias\n\n\n\n\n\nIn this blog post, my goal was to make a prediction of employment status based on various demographics excluding race using a subset of data from the American Community Service focused on Massachusetts residents in 2023. After training a model on this data, I evaluated its performance and examined potential biases in its predictions.\n\n\n\n\n\nMar 12, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\n\n\n\n\n\n\nClassifying Palmer Penguins\n\n\n\n\n\nIn this blog post, I analyze the Palmer Penguins dataset to identify the best features for determining penguin species based on their measurements.\n\n\n\n\n\nFeb 12, 2025\n\n\nEmmanuel Towner\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "projects/vit/vit.html",
-    "href": "projects/vit/vit.html",
-    "title": "Pneumonia Classification with Vision Transformer",
-    "section": "",
-    "text": "This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data."
-  },
-  {
-    "objectID": "projects/vit/vit.html#project-overview",
-    "href": "projects/vit/vit.html#project-overview",
-    "title": "Vision Transformer (ViT)",
-    "section": "",
-    "text": "This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data."
-  },
-  {
-    "objectID": "projects/vit/vit.html#features",
-    "href": "projects/vit/vit.html#features",
-    "title": "Pneumonia Classification with Vision Transformer",
-    "section": "Features",
-    "text": "Features\n\nTakes in latent vectors\nComputes probabilities for each class (pneumonia or not pneumonia)\nTrains, tests and evaluates the model"
-  },
-  {
-    "objectID": "index.html#hi-im-emmanuel-towner",
-    "href": "index.html#hi-im-emmanuel-towner",
-    "title": "Home",
-    "section": "",
-    "text": "I’m a full-stack developer and ML enthusiast passionate about building accessible, clean web experiences.\nView My Projects | Read My Blog"
-  },
-  {
-    "objectID": "index.html#latest-blog-post",
-    "href": "index.html#latest-blog-post",
-    "title": "Home",
-    "section": "📝 Latest Blog Post",
-    "text": "📝 Latest Blog Post\n\nPneumonia Detection Project\nAn exploration of deep learning techniques for pneumonia detection in chest X-rays."
-  },
-  {
-    "objectID": "projects/vit/vit.html#overview",
-    "href": "projects/vit/vit.html#overview",
-    "title": "Pneumonia Classification with Vision Transformer",
-    "section": "",
-    "text": "This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data."
-  },
-  {
-    "objectID": "projects/vit/vit.html#technologies",
-    "href": "projects/vit/vit.html#technologies",
-    "title": "Pneumonia Classification with Vision Transformer",
-    "section": "Technologies",
-    "text": "Technologies\nPython, PyTorch, NumPy, scikit-learn"
-  },
-  {
-    "objectID": "projects/vit/vit.html#links",
-    "href": "projects/vit/vit.html#links",
-    "title": "Pneumonia Classification with Vision Transformer",
-    "section": "Links",
-    "text": "Links\n\n📦 Transformer Repository\n📖 Project Notebook"
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About",
+    "section": "Experience",
+    "text": "Experience\nNatural Language Processing Course Grader\nMiddlebury College | Middlebury, VT | February 2025 – May 2025\nSoftware Developer\nLigerBots | Newton, MA | September 2024 – December 2024\nMachine Learning Research Assistant\nMiddlebury College | Middlebury, VT | June 2024 – August 2024\nIntern\nNewton Housing Authority | Newton, MA | July 2021 – August 2021"
   }
 ]

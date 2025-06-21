@@ -1,9 +1,0 @@
----
-title: "Projects"
-format: html
----
-::: {.grid}
-- [Banking Application](projects/bank/bank_app.qmd)
-- [MiddHousing](projects/middhousing/middhousing.qmd)
-- [Pneumonia Classification](projects/vit/vit.qmd)
-:::

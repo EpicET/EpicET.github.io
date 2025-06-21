@@ -1,25 +1,17 @@
 ---
-title: "Home"
+title: "Emmanuel Towner"
 format: html
 ---
 
-## 👋 Hi, I'm Emmanuel Towner
-
-I'm a full-stack developer and ML enthusiast passionate about building accessible, clean web experiences.
-
-[View My Projects](projects.qmd) | [Read My Blog](posts.qmd)
-
----
-
-## 🖥️ Featured Projects
+## 🖥️ Projects
 
 - **[Pneumonia Classification](projects/vit/vit.qmd)**  
-  A deep learning project using Vision Transformers to classify pneumonia in chest X-rays, achieving 95% accuracy.
+  A deep learning project that used a Vision Transformer to classify pneumonia in chest X-rays.
 
 - **[Banking Application](projects/bank/bank_app.qmd)**  
   A full-stack web application simulating bank functions, built with Java SpringBoot and React.
 
-- **[MiddHousing](projects/middhousing/middhousing.qmd)**
+- **[MiddHousing](projects/middhousing/middhousing.qmd)**  
   A web app for Middlebury students to find and review dorm rooms, featuring a campus map and user reviews.
 
 ---
@@ -29,9 +21,9 @@ I'm a full-stack developer and ML enthusiast passionate about building accessibl
 - **[Pneumonia Detection Project](posts/pneumonia/Final_Project_BP.ipynb)**  
   An exploration of deep learning techniques for pneumonia detection in chest X-rays.
 
+[More Blog Posts](posts.qmd)
 ---
 ## 📬 Let's Connect
 
-[GitHub](https://github.com/yourusername) | 
-[LinkedIn](https://linkedin.com/in/yourusername) | 
-[Email](mailto:youremail@example.com)
+[LinkedIn](https://www.linkedin.com/in/emmanuel-t-12b558211/) | 
+[Email](mailto:etowner@middlebury.edu)
