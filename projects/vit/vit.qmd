@@ -2,19 +2,27 @@
 title: "Pneumonia Classification with Vision Transformer"
 author: Emmanuel Towner
 format: html
+image: 'image.png'
 ---
 
 ## Overview
-This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data.
+This model was part of a larger project where a team built a machine learning pipeline for image classification. We leveraged the Kaggle pneumonia chest X-ray dataset, which contains labeled normal and pneumonia cases. Our pipeline consisted of a CNN autoencoder to extract latent vectors from the images, which were then fed into different machine learning models for classification.
+
+## My Role
+I designed a Vision Transformer in PyTorch that processed latent vectors, using self-attention mechanisms for binary image classification. The model achieved 77% overall accuracy and 98% recall on pneumonia cases. We felt that minimizing false negatives was more important than maximizing overall accuracy, effectively addressing class imbalance.
 
 ## Features
-- Takes in latent vectors
+- Accepts latent vectors as input
 - Computes probabilities for each class (pneumonia or not pneumonia)
-- Trains, tests and evaluates the model
+- Trains, tests, and evaluates the model
 
 ## Technologies
 Python, PyTorch, NumPy, scikit-learn
 
 ## Links
 - 📦  [Transformer Repository](https://github.com/EpicET/pneumonia-transformer)
-- 📖  [Project Notebook](https://github.com/EpicET/cs0451-pneumonia-detection)
+- 📖  [Project Repository](https://github.com/EpicET/cs0451-pneumonia-detection)
+
+<img width="463" alt="image" src="https://github.com/user-attachments/assets/897d1e6c-110d-4291-bec7-f3ea6cc16fc5" />
+
+![Chest X-Ray](image.png)

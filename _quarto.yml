@@ -24,10 +24,10 @@ website:
 
 format:
   html:
-    respect-user-color-scheme: true
     theme:
       light: flatly
       dark: darkly
+    respect-user-color-scheme: true
     css: styles.css
 
 
