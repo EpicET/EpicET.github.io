@@ -2,6 +2,7 @@
 title: "Pneumonia Classification with Vision Transformer"
 author: Emmanuel Towner
 format: html
+image: 'image.png'
 ---
 
 ## Overview

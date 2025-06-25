@@ -2,6 +2,7 @@
 title: "Bank App"
 author: Emmanuel Towner
 format: html
+image: bank_main_page.png
 ---
 
 ## Overview
@@ -27,8 +28,7 @@ React, Bootstrap, Axios
 
 ### Backend
 Java, Spring Boot, MongoDB
+
+## Links
 - 📦  [GitHub Repository](https://github.com/EpicET/bank_app)
 
-<!-- ## Screenshots
-![Bank login page](/bank_front_page.png)
-![Bank main page](/bank_main_page.png) -->

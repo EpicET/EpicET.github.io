@@ -2,6 +2,7 @@
 title: "MiddHousing"
 author: Caroline Haggerty, Julian Sandoval, Nate Harris, Siri, Vy Diep, Emmanuel Towner
 format: html
+image: 'middhousing.png'
 ---
 
 ## App Description
