@@ -5,24 +5,24 @@ format: html
 ---
 
 ## App Description
-MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate previous rooms they have lived in. Students will also have the ability to sort their searches based on specific preferences and see the campus map for specific locations.
+MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate rooms they have previously lived in. Students can also sort their searches based on specific preferences and view the campus map for specific locations.
 
 ## My Role
-I implemented the both main and dorm search bars which allowed the user to view all dorms and filter by preferences. I also created the review functionality which allowed users to use stars to rate the room out of five and write their room experience in a text box. Furthemore, utilized the api to access backend information about the room such as size and room type. I also assisted the develpment and testing of the knex.js models. 
+I implemented both the main and dorm search bars, allowing users to view all dorms and filter by preferences. I also created the review functionality, enabling users to rate rooms out of five stars and write about their room experiences in a text box. Furthermore, I utilized the API to access backend information about rooms, such as size and room type. I also assisted in the development and testing of the Knex.js models.
 
 ## Features
 - Interactive Leaflet map with campus map
-- Dorm and Room search functionality
+- Dorm and room search functionality
     - Floor plans
     - Room pages
 - Reviews:
-    - Rate room with stars
-    - Textbox
+    - Rate rooms with stars
+    - Text box for experiences
 - Profile:
-    - User name, email and password
+    - User name, email, and password
     - Saved preferences and rooms
-- PostgresSQL database for storing user information
-- Knex.js for query calls to database
+- PostgreSQL database for storing user information
+- Knex.js for database queries
 - Google Authentication system
 
 ## Technologies
