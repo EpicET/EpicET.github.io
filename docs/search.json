@@ -39,21 +39,28 @@
     "href": "projects/vit/vit.html",
     "title": "Pneumonia Classification with Vision Transformer",
     "section": "",
-    "text": "This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data."
+    "text": "This model was part of a larger project where a team built a machine learning pipeline for image classification. We leveraged the Kaggle pneumonia chest X-ray dataset, which contains labeled normal and pneumonia cases. Our pipeline consisted of a CNN autoencoder to extract latent vectors from the images, which were then fed into different machine learning models for classification."
   },
   {
     "objectID": "projects/vit/vit.html#overview",
     "href": "projects/vit/vit.html#overview",
     "title": "Pneumonia Classification with Vision Transformer",
     "section": "",
-    "text": "This project implements a Vision Transformer (ViT) model for image classification tasks. The ViT architecture leverages self-attention mechanisms to process images as sequences of patches, enabling it to capture long-range dependencies and complex patterns in visual data."
+    "text": "This model was part of a larger project where a team built a machine learning pipeline for image classification. We leveraged the Kaggle pneumonia chest X-ray dataset, which contains labeled normal and pneumonia cases. Our pipeline consisted of a CNN autoencoder to extract latent vectors from the images, which were then fed into different machine learning models for classification."
+  },
+  {
+    "objectID": "projects/vit/vit.html#my-role",
+    "href": "projects/vit/vit.html#my-role",
+    "title": "Pneumonia Classification with Vision Transformer",
+    "section": "My Role",
+    "text": "My Role\nI designed a Vision Transformer in PyTorch that processed latent vectors, using self-attention mechanisms for binary image classification. The model achieved 77% overall accuracy and 98% recall on pneumonia cases. We felt that minimizing false negatives was more important than maximizing overall accuracy, effectively addressing class imbalance."
   },
   {
     "objectID": "projects/vit/vit.html#features",
     "href": "projects/vit/vit.html#features",
     "title": "Pneumonia Classification with Vision Transformer",
     "section": "Features",
-    "text": "Features\n\nTakes in latent vectors\nComputes probabilities for each class (pneumonia or not pneumonia)\nTrains, tests and evaluates the model"
+    "text": "Features\n\nAccepts latent vectors as input\nComputes probabilities for each class (pneumonia or not pneumonia)\nTrains, tests, and evaluates the model"
   },
   {
     "objectID": "projects/vit/vit.html#technologies",
@@ -67,7 +74,7 @@
     "href": "projects/vit/vit.html#links",
     "title": "Pneumonia Classification with Vision Transformer",
     "section": "Links",
-    "text": "Links\n\n📦 Transformer Repository\n📖 Project Notebook"
+    "text": "Links\n\n📦 Transformer Repository\n📖 Project Repository\n\n\n\n\n\nChest X-Ray"
   },
   {
     "objectID": "posts/kernel/index.html",
@@ -116,14 +123,14 @@
     "href": "posts/pneumonia/Final_Project_BP.html",
     "title": "Pnuemonia Detection",
     "section": "",
-    "text": "Within our blog post, we created a neural network and implemented three different binary classifers trained on chest x-ray image data to detect pneumonia based on images. We used convolution layers to convert images into latent vectors by which we could feed into our various machine learning models: a transformer, an SVM, and a gradient boosting model. Through analyzing the accuracy of each model, we discovered a similar accuracy between the models of around 78% on testing data.\nHere is the link our code."
+    "text": "Within our blog post, we created a neural network and implemented three different binary classifers trained on chest x-ray image data to detect pneumonia based on images. We used convolution layers to convert images into latent vectors by which we could feed into our various machine learning models: a transformer, an SVM, and a gradient boosting model. Through analyzing the accuracy of each model, we discovered a similar accuracy between the models of around 78% on testing data.\nHere is the link to our code."
   },
   {
     "objectID": "posts/pneumonia/Final_Project_BP.html#abstract",
     "href": "posts/pneumonia/Final_Project_BP.html#abstract",
     "title": "Pnuemonia Detection",
     "section": "",
-    "text": "Within our blog post, we created a neural network and implemented three different binary classifers trained on chest x-ray image data to detect pneumonia based on images. We used convolution layers to convert images into latent vectors by which we could feed into our various machine learning models: a transformer, an SVM, and a gradient boosting model. Through analyzing the accuracy of each model, we discovered a similar accuracy between the models of around 78% on testing data.\nHere is the link our code."
+    "text": "Within our blog post, we created a neural network and implemented three different binary classifers trained on chest x-ray image data to detect pneumonia based on images. We used convolution layers to convert images into latent vectors by which we could feed into our various machine learning models: a transformer, an SVM, and a gradient boosting model. Through analyzing the accuracy of each model, we discovered a similar accuracy between the models of around 78% on testing data.\nHere is the link to our code."
   },
   {
     "objectID": "posts/pneumonia/Final_Project_BP.html#introduction",
@@ -382,63 +389,63 @@
     "href": "projects/bank/bank_app.html",
     "title": "Bank App",
     "section": "",
-    "text": "My first project; a full-stack web application that simulates the functions of a bank website. The backend was built Java SpringBoot and MongoDB as the database. Frontend was React with Axios is the api between it and the localhost server."
+    "text": "This was my first project: a full-stack web application that simulates the functions of a bank website. The backend was built with Java Spring Boot and MongoDB as the database. The frontend uses React, with Axios as the API client between it and the local server."
   },
   {
     "objectID": "projects/bank/bank_app.html#overview",
     "href": "projects/bank/bank_app.html#overview",
     "title": "Bank App",
     "section": "",
-    "text": "My first project; a full-stack web application that simulates the functions of a bank website. The backend was built Java SpringBoot and MongoDB as the database. Frontend was React with Axios is the api between it and the localhost server."
+    "text": "This was my first project: a full-stack web application that simulates the functions of a bank website. The backend was built with Java Spring Boot and MongoDB as the database. The frontend uses React, with Axios as the API client between it and the local server."
   },
   {
     "objectID": "projects/bank/bank_app.html#features",
     "href": "projects/bank/bank_app.html#features",
     "title": "Bank App",
     "section": "Features",
-    "text": "Features\n\nProfile:\n\nUser name\nUser password\nBank accounts (Checking/Saving)\n\nBanking features:\n\nDeposit\nWithdraw\nTransfer\n\nPie chart representing money with each account\nTransaction history table and graph for each account\nDatabase storing user information"
+    "text": "Features\n\nProfile:\n\nUsername\nPassword\nBank accounts (Checking/Savings)\n\nBanking features:\n\nDeposit\nWithdraw\nTransfer\n\nPie chart representing the balance of each account\nTransaction history table and graph for each account\nDatabase for storing user information"
   },
   {
     "objectID": "projects/bank/bank_app.html#technologies",
     "href": "projects/bank/bank_app.html#technologies",
     "title": "Bank App",
     "section": "Technologies",
-    "text": "Technologies\n\nFrontend\nReact, Bootstrap, Axios\n\n\nBackend\nJava, SpringBoot, MongoDB"
+    "text": "Technologies\n\nFrontend\nReact, Bootstrap, Axios\n\n\nBackend\nJava, Spring Boot, MongoDB"
   },
   {
     "objectID": "projects/bank/bank_app.html#links",
     "href": "projects/bank/bank_app.html#links",
     "title": "Bank App",
     "section": "Links",
-    "text": "Links\n\n📦 GitHub Repository"
+    "text": "Links\n\n📦 GitHub Repository\n\n\n\n\nBank App Main Page"
   },
   {
     "objectID": "projects/middhousing/middhousing.html",
     "href": "projects/middhousing/middhousing.html",
     "title": "MiddHousing",
     "section": "",
-    "text": "MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate previous rooms they have lived in. Students will also have the ability to sort their searches based on specific preferences and see the campus map for specific locations."
+    "text": "MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate rooms they have previously lived in. Students can also sort their searches based on specific preferences and view the campus map for specific locations."
   },
   {
     "objectID": "projects/middhousing/middhousing.html#app-description",
     "href": "projects/middhousing/middhousing.html#app-description",
     "title": "MiddHousing",
     "section": "",
-    "text": "MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate previous rooms they have lived in. Students will also have the ability to sort their searches based on specific preferences and see the campus map for specific locations."
+    "text": "MiddHousing is a web app that allows students to find accurate information about individual dorm rooms and rate rooms they have previously lived in. Students can also sort their searches based on specific preferences and view the campus map for specific locations."
   },
   {
     "objectID": "projects/middhousing/middhousing.html#my-role",
     "href": "projects/middhousing/middhousing.html#my-role",
     "title": "MiddHousing",
     "section": "My Role",
-    "text": "My Role\nI implemented the both main and dorm search bars which allowed the user to view all dorms and filter by preferences. I also created the review functionality which allowed users to use stars to rate the room out of five and write their room experience in a text box. Furthemore, utilized the api to access backend information about the room such as size and room type. I also assisted the develpment and testing of the knex.js models."
+    "text": "My Role\nI implemented both the main and dorm search bars, allowing users to view all dorms and filter by preferences. I also created the review functionality, enabling users to rate rooms out of five stars and write about their room experiences in a text box. Furthermore, I utilized the API to access backend information about rooms, such as size and room type. I also assisted in the development and testing of the Knex.js models."
   },
   {
     "objectID": "projects/middhousing/middhousing.html#features",
     "href": "projects/middhousing/middhousing.html#features",
     "title": "MiddHousing",
     "section": "Features",
-    "text": "Features\n\nInteractive Leaflet map with campus map\nDorm and Room search functionality\n\nFloor plans\nRoom pages\n\nReviews:\n\nRate room with stars\nTextbox\n\nProfile:\n\nUser name, email and password\nSaved preferences and rooms\n\nPostgresSQL database for storing user information\nKnex.js for query calls to database\nGoogle Authentication system"
+    "text": "Features\n\nInteractive Leaflet map with campus map\nDorm and room search functionality\n\nFloor plans\nRoom pages\n\nReviews:\n\nRate rooms with stars\nText box for experiences\n\nProfile:\n\nUser name, email, and password\nSaved preferences and rooms\n\nPostgreSQL database for storing user information\nKnex.js for database queries\nGoogle Authentication system"
   },
   {
     "objectID": "projects/middhousing/middhousing.html#technologies",
@@ -452,7 +459,7 @@
     "href": "projects/middhousing/middhousing.html#links",
     "title": "MiddHousing",
     "section": "Links",
-    "text": "Links\n\n📦 GitHub Repository"
+    "text": "Links\n\n📦 GitHub Repository\n\n\n\n\nMiddHousing Main Page"
   },
   {
     "objectID": "about.html",

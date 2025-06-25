@@ -32,3 +32,4 @@ Java, Spring Boot, MongoDB
 ## Links
 - 📦  [GitHub Repository](https://github.com/EpicET/bank_app)
 
+![Bank App Main Page](bank_main_page.png)

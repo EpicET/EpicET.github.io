@@ -37,3 +37,4 @@ Knex.js, Next.js, Docker
 ## Links
 - 📦  [GitHub Repository](https://github.com/csci312a-f23/project-ellen)
 
+![MiddHousing Main Page](middhousing.png)

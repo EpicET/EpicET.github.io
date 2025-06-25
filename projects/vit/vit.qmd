@@ -22,3 +22,7 @@ Python, PyTorch, NumPy, scikit-learn
 ## Links
 - 📦  [Transformer Repository](https://github.com/EpicET/pneumonia-transformer)
 - 📖  [Project Repository](https://github.com/EpicET/cs0451-pneumonia-detection)
+
+<img width="463" alt="image" src="https://github.com/user-attachments/assets/897d1e6c-110d-4291-bec7-f3ea6cc16fc5" />
+
+![Chest X-Ray](image.png)
